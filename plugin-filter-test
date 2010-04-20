@@ -1,0 +1,44 @@
+{
+    package MyApp;
+    use Moose;
+    with 'MooseX::Object::Pluggable';
+    has "body" => isa => "Str", is => "rw";
+    sub filter {}
+}
+
+{
+    package MyApp::Plugin::Pretty;
+    use Moose::Role;
+    requires qw( filter body );
+    after 'filter' => sub {
+        my $self = shift;
+        $self->body( $self->body . " pretty");
+    };
+
+}
+
+{
+    package MyApp::Plugin::Ugly;
+    use Moose::Role;
+    after 'filter' => sub {
+        my $self = shift;
+        $self->body( $self->body . " ugly");
+    };
+}
+
+
+# use MyApp;
+my $app = MyApp->new;
+
+$app->load_plugin('Pretty');
+$app->body("I am");
+$app->load_plugin('Ugly');
+
+$app->filter;
+
+
+print $app->body, $/;
+
+__END__
+
+Yesh::Filter::XHTML::Enpara
