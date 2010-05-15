@@ -1,0 +1,69 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+use LWP::Simple qw(get getstore);
+use URI;
+use Cwd;
+
+chdir($ENV{HOME}) || die "Couldn't chdir($ENV{HOME})\n";
+
+delete @ENV{qw( MODULEBUILDRC PERL_MM_OPT PERL5LIB )};
+
+if ( -d "perl" )
+{
+    print qx{ mv perl old-perl };
+}
+
+if ( -d ".cpan" )
+{
+    print qx{ mv .cpan .old-cpan };
+}
+
+my $dist_uri = URI->new("http://search.cpan.org/dist/local-lib/");
+
+my $dist_page = get($dist_uri) || die "Couldn't get $dist_uri\n";
+
+my ( $src ) = $dist_page =~ /\[<a href="(.+)"[^>]*>Download<\/a>\]/;
+#[<a href="/CPAN/authors/id/M/MS/MSTROUT/local-lib-1.006000.tar.gz">Download</a>]
+
+print $src, $/;
+$src = URI->new_abs($src, $dist_uri);
+print $src, $/;
+
+getstore($src, "local-lib.tgz") || die "Couldn't getstore $dist_uri: $!";
+#    unless -e "local-lib.tgz";
+
+print qx{ tar xpfvz local-lib.tgz };
+#    unless -d "local-lib";
+
+my $dir = getcwd();
+opendir my $dh, $dir or die "Couldn't opendir $dir: $!";
+
+my ( $newest_local_lib ) =
+    sort { -M $a <=> -M $b }
+    grep { -d }
+    map { "$dir/$_" }
+    grep { /\Alocal-lib-/ }
+    readdir($dh);
+
+print "Newest local-lib dir is $newest_local_lib", $/;
+
+chdir($newest_local_lib);
+
+open my $makefile, "|-", "Makefile.PL --bootstrap --no-manpages";
+print $makefile "\n";
+
+# print qx{ make test && make install }; # Moot. It won't work if it won't work.
+print qx{ make install };
+
+eval 'use lib "./lib"';
+
+print qx{ perl -I\$HOME/perl5/lib/perl5 -Mlocal::lib };
+
+
+exit 0;
+
+#  Subroutines
+#---------------------------------------------------------------------
+
+__DATA__
