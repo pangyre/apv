@@ -1,0 +1,16 @@
+# I prefer 70 but certain layouts fare badly, let the user pick.
+-l=160
+-i=4
+-bl
+-nsbl
+-lp
+-vt=2
+-cti=2
+-sot
+-sct
+-pt=1
+-sbt=2
+-bt=1
+-bbt=0
+-nsfs
+-nolq
