@@ -13,3 +13,5 @@ Makefile
 MANIFEST.bak
 Makefile.old
 trash/
+etc/
+
