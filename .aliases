@@ -1,0 +1,160 @@
+# This should be cleaned up A LOT, generalized, setup with vars for
+# base paths and put into the .tcshrc probably so a mirror version
+# from a perl-oneliner can translate to bash.
+
+alias hrs-dicom 'sudo lsof -Pni :6789 | ack \\\d | perl -lane "print /(\d+)/" | xargs ps'
+
+alias web-test 'k ; pwd ; sudo -u apache prove -l -Ixt/lib xt/web/ -v'
+alias cat-ers 'tail -f /usr/local/mpv4/hss/logs/log4perl.log'
+alias 6789 "sudo netstat -anp | ack \\b6789\\b | perl -lane 'print m,(\d+)/java,' | xargs ps"
+
+alias sct "clear ; pwd ; cd /usr/local/sct_tf"
+
+alias mpv4 "pwd; cd /usr/local/mpv4/repos/mpv4_repo"
+
+alias hs "perldoc -m HTTP::Status | perl -ne '/\A\s+100/ .. /510/ and print'"
+
+# alias pod-items-orig 'echo "\n=over 4\n" ; ack sub\  \!* | perl -lpne "s/\A.*?sub (\w+).+/=item * \1\n/g"; echo "=back\n"'
+
+#alias pod-items 'perl -lne "BEGIN{print qq{=over 4\n} }; (\$name) = /^\s*(?:sub|has)\W+(?=[^_])(\w)/m; \$name || next;print qq{=item * \$name\n}; END {print qq{=back\n}}"'
+
+alias p 'sudo -u apache prove -l lib -v'
+alias hanged 'ps uawwx | egrep "^apv" | grep dev | grep -v dev'
+alias htd "perl -MHTML::Entities -le 'print decode_entities +shift'"
+# alias hte "perl -MHTML::Entities -le 'print HTML::Entities::encode_entities_numeric( +shift, "[\w\W]" )'"
+
+
+alias no-en-cvs 'cvs -qn update | grep "^?" | cut -f 2 -d " "'
+#alias tf "clear; tail -f"
+alias mp "clear; pwd; cd /usr/local/mpv4/repos/mpv4_repo"
+alias pv "perl -le 'eval qq/use @{[+shift]}; 1;/ || die; print shift->VERSION || qq/No version found.../' \!* \!*"
+
+# alias save-sv "rsync FlashStackViewer perlperl@perlperl.com:~/"
+
+alias cs "sudo -u apache perl script/*_server.pl -d -r -p 3030"
+#alias cs "perl -MCarp::Always script/*_server.pl -d"
+
+alias moon 'perl -MAstro::MoonPhase -e "printf qq{\n\tThe Moon is %.1f%% full\n\n},100*(phase)[1]"'
+
+alias mf "clear; pwd ; cd /Users/jinx/depot/sites/mf"
+
+alias kers "tail -f /var/log/httpd/kai.vivalog.com.error_log"
+alias iers "tail -f /var/log/httpd/imu..vivalog.com.error_log"
+
+alias gst "git stat"
+alias gdiff "git diff"
+
+alias he 'perl -MHTML::Entities -le "print HTML::Entities::encode_entities_numeric(decode_entities(+shift))"'
+
+alias clink 'pwd; cd ~/depot/clink'
+alias clinky 'clink; ./script/clink_server.pl -p 3210 -r'
+alias trunk 'pwd; cd ~/depot/cpan/trunk'
+
+alias ms "module-starter --builder=Module::Install --module="
+
+alias depot "pwd; cd /Users/jinx/depot/"
+alias sites "pwd; cd /Users/jinx/depot/sites/"
+alias yesh "pwd; cd /Users/jinx/cpan/Yesh"
+alias punch "pwd; cd /Users/jinx/depot/punchline"
+alias punchy "punch; ./script/punchline_server.pl -r -p 5555"
+
+alias pq "ssh apond@sandbox.prosperlearning.com"
+
+alias shutdown "mysqladmin -u root -p shutdown"
+alias itune 'pwd; cd "/Users/jinx/Music/iTunes/iTunes Music"'
+alias music 'cd /Users/jinx/Music/iTunes/iTunes\ Music/Raven\ May'
+alias scritti 'cd ~/scritti/'
+
+alias buildit "rm -f META.yml ; make clean; rm -f MANIFEST; rm -f META.yml; make manifest ; perl Makefile.PL && make && make test; make manifest; make dist"
+
+alias buildit-terse "make clean; rm -f MANIFEST; make manifest ; perl Makefile.PL && make; make manifest; make dist"
+
+# alias calc 'perl -ple"$_=eval"'
+
+alias ga google-adsense-report
+alias fw "clear;pwd;cd /Users/apv/tt2/featherweight/"
+
+alias kill-scratch-files "sleep 5; find ./ -name '*#*' -print | perl -nle unlink; find ./ -name '.#*' -print | perl -nle unlink"
+
+alias rm "rm -i"
+alias cp "cp -i"
+alias mv "mv -i"
+
+alias msq "cd /usr/local/mysql; sudo bin/mysqld_safe --user=mysql"
+alias psq "/usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data"
+
+alias saves 'sudo savesalot /Users/jinx/backup-list'
+
+alias lu 'sudo /usr/libexec/locate.updatedb'
+
+alias ers "tail -f /var/log/httpd/error_log"
+# alias ps perl -w -e 'BEGIN { chomp($me = `whoami`); print "$me>" }
+# while (<>) { eval; print ( ($@ || "\n") . "$me>" ) }'
+alias ph 'ps -aux |grep httpd'
+alias l less
+
+alias apache-config 'sudo emacs /usr/local/apache2/conf/httpd.conf'
+alias configtest 'sudo /usr/local/apache/sbin/apachectl configtest'
+alias apache 'sudo service httpd graceful'
+
+alias pd perldoc
+
+# How to tar a directory:
+# tar -cvf tarfilename.tar directory
+# How to tar and zip a directory:
+# tar -cvzf tarfilename.tgz directory 
+
+alias sl 'ls -laF'
+alias to mail
+alias mx 'chmod 755'
+alias bin 'pwd ; cd ~/bin'
+alias spi 'pwd ; cd ~/bin/spiders'
+alias lib 'pwd ; cd ~/lib'
+alias pub 'cd ~/Public'
+alias d 'cd /ddx'
+alias clean 'cleaner'
+alias dict 'cd ~/321/dd2k'
+alias m 'cd /majenta/htdocs'
+alias mu 'cat /majenta/etc/UPDATE-shell'
+
+alias e 'emacs'
+
+alias rnfix "perl -pi -e 's/\r\n?/\n/g'"
+
+alias echcheck 'echo $*'
+
+# MAIL TOOLS --------------------------------------------------
+alias g 'grep -i'
+
+# ENVIRONMENT TOOLS ------------------------------------------
+
+alias sour 'source ~/.aliases; source ~/.tcshrc'
+alias max 'emacs ~/.aliases; sour'
+alias cl clear
+alias k clear
+alias l1 'ls -1'
+
+# PERSONAL TOOLS ---------------------------------------------
+
+alias now 'date ; cal'
+
+# PERL/UNIX TOOLS --------------------------------------------------
+
+alias note 'echo "Fille this in"
+alias mcnote 'echo "Fill this in'
+
+alias x 'clear; echo "exiting..."; sleep 3; exit'
+
+alias find-big 'find ./ -type f -size 100 | xargs ls -Sla'
+
+alias ds  'cl;pwd; cd /ddx/bin ; cat ddx-commands'
+
+# The "z" flag works with gzip, to either create a tar/gzipped
+  archive:
+# tar -czvf archive.tgz files/
+# ...or decompress a tar/gzipped archive:
+# tar -xzvf archive.tgz
+# alias unpack 'gnutar xpfvz'
+
+alias zipit 'tar czvpf'
+alias unzipit 'tar xpfvz'

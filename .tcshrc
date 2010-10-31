@@ -1,0 +1,25 @@
+# Personal shell/environment
+
+set correct=cmd
+set autocorrect
+set autolist
+set prompt3 = "Do you mean: %R? "
+
+set savehist
+set history = 3000
+set prompt = "`whoami`@%m[%h]%.3>"
+
+setenv COPY_EXTENDED_ATTRIBUTES_DISABLE 1
+setenv EDITOR  emacs
+setenv PAGER   less
+setenv CVS_RSH ssh
+# setenv CVSROOT /usr/local/cvsroot
+setenv CVSROOT /var/cvs
+setenv LC_ALL  C
+umask 002
+source ~/.aliases
+
+# DEFAULT KEY BINDINGS
+     bindkey "^R" i-search-back
+     bindkey -k down history-search-forward
+     bindkey -k up history-search-backward
