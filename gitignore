@@ -14,4 +14,4 @@ MANIFEST.bak
 Makefile.old
 trash/
 etc/
-
+.gitignore
