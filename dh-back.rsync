@@ -1,0 +1,9 @@
+# IMAGEFILES
+rsync -e ssh --exclude '*~' --exclude '*#*' --exclude '*svn*' \
+  --exclude "blib/" \
+  --exclude "inc/" \
+  --exclude ".DS_Store" \
+  --exclude "toss/" \
+  --stats --progress -avzur \
+  /Users/apv/imagefiles/ \
+  b54527@hanjin.dreamhost.com:~/
