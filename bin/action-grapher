@@ -1,0 +1,20 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+
+use CatalystX::Dispatcher::AsGraph;
+my $app = shift || die "Give app name\n";
+my $graph = CatalystX::Dispatcher::AsGraph->new(
+                                                appname => $app,
+                                                output  => "\l$app.png",
+                                               );
+$graph->run;
+
+if ( open( my $png, '|-', 'dot -Tpng -o ' . $graph->output ) ) {
+    print {$png} $graph->graph->as_graphviz;
+    close $png;
+}
+else
+{
+    die "Couldn't draw it";
+}
