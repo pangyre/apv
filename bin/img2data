@@ -9,6 +9,8 @@ use Path::Class qw( file );
 
 my $img = file(shift || die "Give me an image file.\n");
 
+-e $img || die "Can't find $img, tough guy.\n";
+
 die "That's too big for this kind of thing, don't you think?\n"
     if -s $img > 2 * 1_024;
 
