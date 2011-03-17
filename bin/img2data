@@ -30,3 +30,8 @@ print $src, $/;
 exit 0;
 
 __DATA__
+
+# For wrapped output.
+use Text::Wrap;
+$Text::Wrap::columns = 72;
+print wrap("", "", $src), $/;
