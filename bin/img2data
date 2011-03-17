@@ -6,13 +6,14 @@ use Image::ExifTool;
 use Path::Class qw( file );
 
 #---------------------------------------------------------------------
+my $max_k = 5;
 
 my $img = file(shift || die "Give me an image file.\n");
 
 -e $img || die "Can't find $img, tough guy.\n";
 
-die "That's too big for this kind of thing, don't you think?\n"
-    if -s $img > 2 * 1_024;
+die "That's too big for this kind of thing; ${max_k}K max.\n"
+    if -s $img > $max_k * 1_024;
 
 my $exif = Image::ExifTool->new;
 
