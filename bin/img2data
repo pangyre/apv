@@ -18,7 +18,7 @@ die "That's too big for this kind of thing; ${max_k}K max.\n"
 my $exif = Image::ExifTool->new;
 
 my $info = $exif->ImageInfo($img->stringify);
-
+use YAML; print YAML::Dump($info);
 my $src = sprintf "data:%s;base64,%s",
     $info->{MIMEType},
     encode_base64($img->slurp);
