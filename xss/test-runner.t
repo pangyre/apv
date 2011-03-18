@@ -334,3 +334,13 @@ _RS_
 \x3C
 \u003c
 \u003C
+_RS_
+<style type="text/css">
+   @import url("screen.css");
+</style>
+_RS_
+<div type="text/css">
+   @import url("screen.css");
+</div>
+_RS_
+
