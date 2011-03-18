@@ -116,6 +116,11 @@ $renew
    my $wrapper = [ $doc->findnodes('//div[@id="0x7377CCD850F111E0BFA695BADFF11978"]') ]->[0];
    my $renew2 = "";
    $wrapper->normalize;
+   for ( $wrapper->findnodes("//a") )
+   {
+       $_->parentNode->removeChild($_)
+           unless $_->hasAttribute("href");
+   }
    for ( $wrapper->findnodes("//*") )
    {
        $_->parentNode->removeChild($_)
