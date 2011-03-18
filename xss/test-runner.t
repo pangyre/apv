@@ -343,4 +343,42 @@ _RS_
    @import url("screen.css");
 </div>
 _RS_
-
+<span style="@import url("style.css");">++++++++++++Yes</span>
+2<span style="@import url(style.css);">++++++++++++Yes </span>
+3<span style="@import "style.css";">+++-++++++++Yes </span>
+4<span style="@import url("style.css") all;">----++++++++Yes </span>
+5<span style="@import url("&#115;">tyle.css");">----+-+++---Yes </span>
+6&#64;">import url("style.css");">----+-+++---Yes </span>
+7<span style="@import url("style.%63ss");">++++++++++++Yes </span>
+8<span style="@import/**/"style.css";">++--+++++++-Yes </span>
+9<span style="@import "style.css"/**/;">+---+++++++-Yes </span>
+10<span style="@import url(/**/"style.css");">+-----+++---Yes </span>
+11<span style="@imp\6F rt url("style.css");">+-----+++--+YesWarning</span>
+12<span style="@import\**\"style.css";">-+----------YesWarning</span>
+13<span style="@im\port url("style.css");">+-----+++--+YesWarning</span>
+14<span style="@import\ url("style.css");">-+++--------YesWarning</span>
+15<span style="@import_url("style.css");">--++-------+YesWarning</span>
+16<span style="@import "style.css";"></span>
+Non-Breaking Space (Alt-0160) after <span style="@import-++---------YesWarning</span>
+17 <span style="@import "style.css";"></span>
+Non-Breaking Space (Alt-0160) before <span style="@import+++---------NoError</span>
+18<span style="@import "style.css" ;"></span>
+Non-Breaking Space (Alt-0160) before ;">+++---------NoError</span>
+19<span style="@import url ("style.css");"></span>
+Non-Breaking Space (Alt-0160) after url-+----------NoError</span>
+20<span style="@import: url("style.css");">++++--- -   NoError</span>
+21<span style="@ import url("style.css");">-+----------NoError</span>
+22<span style="@import url ("style.css");">++----------NoError</span>
+23<span style="@import style.css;">+++---------NoError</span>
+24_<span style="@import "style.css";">--+---------NoError</span>
+25<span style="@import url("style.css")_;">-------++---NoError</span>
+26em{color:red};"><span style="@import url("style.css");">-+++--------NoError</span>
+27\<span style="@import url("style.css");">--++--------NoError</span>
+28<span style="@import url\ ("style.css");">+-----------NoError</span>
+29<span style="@import ur\6C ("style.css");">+-----+++--+NoError</span>
+30<span style="@import(style.css);">---------- +NoError</span>
+31<span style="@import url("style.\63 ss");">+---++++++++NoError</span>
+[Bad Request]</span>
+32<span style="@import url("style. </span>
+css");">++++--------NoError</span>
+33<span style="@import url("style.\css");"></span>
