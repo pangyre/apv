@@ -107,7 +107,9 @@ sub sanitize_html {
    my $libxml = XML::LibXML->new;
    $libxml->recover_silently(1);
    my $doc = $libxml->parse_html_string(<<"");
-<html><head><title>untitled</title></head><body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head><title>untitled</title></head><body>
 <div id="0x7377CCD850F111E0BFA695BADFF11978">
 $renew
 </div>
