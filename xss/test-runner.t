@@ -12,7 +12,6 @@ while ( my $in = <DATA> )
 {
     chomp $in;
     my $out = sanitize_html(\$in);
-    next if $out !~ /</;
     diag(sprintf("BEFORE: $in\n----------\nAFTER: $out\n",
                  $in,
                  $out)
@@ -94,7 +93,7 @@ _RS_
 _RS_
 <INPUT TYPE="IMAGE" SRC="javascript:alert('XSS');">
 _RS_
-<BODY BACKGROUND="javascript:alert('XSS')">
+<BODY BACKGROUND="javascript:alert('XSS')"></BODY>
 _RS_
 <BODY ONLOAD=alert('XSS')>
 _RS_

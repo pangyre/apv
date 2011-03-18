@@ -27,7 +27,7 @@ our %AllowedTags = %HTML::Tagset::isKnown;
 
 # I put in HTML5 too though they aren't in the isKnown list currently.
 delete @AllowedTags{qw( html head meta style body title object embed
-bgsound
+                        bgsound layer
                         noscript script param video iframe img link
                         applet area base basefont blink dir form input
                         option select frame frameset ilayer video 
@@ -128,8 +128,8 @@ $renew
    }
 
    $renew2 .= $_->serialize(1) for $wrapper->childNodes;
+   $renew2 =~ s/\A\s+|\s+\z//g;
    $renew2;
-#   $renew;
 }
 
 # subs -----------------------------------------
