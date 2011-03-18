@@ -16,7 +16,7 @@ while ( my $in = <DATA> )
                  $in,
                  $out)
         );
-    diag "================================\n";
+    diag "\n================================\n\n";
 }
 
 done_testing();
@@ -381,4 +381,7 @@ Non-Breaking Space (Alt-0160) after url-+----------NoError</span>
 [Bad Request]</span>
 32<span style="@import url("style. </span>
 css");">++++--------NoError</span>
-33<span style="@import url("style.\css");"></span>
+33<span style="@import url("style.\css");">
+</span>
+_RS_
+<p style="text-align:center;background:url(/asdf)">o hai</p>
