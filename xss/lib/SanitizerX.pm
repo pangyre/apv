@@ -7,6 +7,7 @@ use HTML::Tagset;
 use HTML::Entities;
 use HTML::TokeParser::Simple;
 use XML::LibXML;
+use URI;
 use Sub::Exporter -setup => {
     exports => [ qw( sanitize_html ) ],
     groups => [ default => [ qw( sanitize_html ) ] ],
@@ -26,6 +27,7 @@ our %AllowedTags = %HTML::Tagset::isKnown;
 
 # I put in HTML5 too though they aren't in the isKnown list currently.
 delete @AllowedTags{qw( html head meta style body title object embed
+bgsound
                         noscript script param video iframe img link
                         applet area base basefont blink dir form input
                         option select frame frameset ilayer video 
@@ -63,10 +65,20 @@ sub sanitize_html {
            $token->rewrite_tag;
 
            if ( my $style = $token->get_attr("style") )
-               {
-                   my $css = CSS::Tiny->read_string("_null_ { $style }");
+           {
+               my $css = CSS::Tiny->read_string("_null_ { $style }");
                $token->set_attr( style => format_css($css->{_null_}) );
-               }
+           }
+           if ( my $href = $token->get_attr("href") )
+           {
+               my $uri = URI->new($href);
+               $token->delete_attr("href")
+                   unless $uri->scheme =~ /\Ahttps?\z/i
+                   and
+                   $uri->host =~ /\A[a-z0-9]+\.[a-z0-9]+\z/i;
+           }
+           $token->rewrite_tag;
+
            $renew .= $token->as_is;
        }
        elsif ( $token->is_end_tag )
@@ -91,7 +103,28 @@ sub sanitize_html {
            die "Unhandled ", ref($token), " - what to do? --> ", $token->as_is;
        }
    }
-   $renew;
+
+   my $libxml = XML::LibXML->new;
+   $libxml->recover_silently(1);
+   my $doc = $libxml->parse_html_string(<<"");
+<html><head><title>untitled</title></head><body>
+<div id="0x7377CCD850F111E0BFA695BADFF11978">
+$renew
+</div>
+</body></html>
+
+   my $wrapper = [ $doc->findnodes('//div[@id="0x7377CCD850F111E0BFA695BADFF11978"]') ]->[0];
+   my $renew2 = "";
+   $wrapper->normalize;
+   for ( $wrapper->findnodes("//*") )
+   {
+       $_->parentNode->removeChild($_)
+           unless $_->textContent() =~ /\S/;
+   }
+
+   $renew2 .= $_->serialize(1) for $wrapper->childNodes;
+   $renew2;
+#   $renew;
 }
 
 # subs -----------------------------------------
