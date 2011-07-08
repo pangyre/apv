@@ -7,21 +7,13 @@ use HTML::Tagset;
 use HTML::Entities;
 use HTML::TokeParser::Simple;
 use XML::LibXML;
+use XML::Catalogs::HTML;
+XML::Catalogs::HTML->notify_libxml();
 use URI;
 use Sub::Exporter -setup => {
     exports => [ qw( sanitize_html ) ],
     groups => [ default => [ qw( sanitize_html ) ] ],
 };
-
-=head1 Known issues to fix
-
-Scheme on hrefs must be validated: /https?/
-
-CSS parsing must be vetted and have @import and potential shortcuts pulled.
-
-Final pass through XML::LibXML to ensure well formed HTML.
-
-=cut
 
 our %AllowedTags = %HTML::Tagset::isKnown;
 
@@ -30,7 +22,7 @@ delete @AllowedTags{qw( html head meta style body title object embed
                         bgsound layer
                         noscript script param video iframe img link
                         applet area base basefont blink dir form input
-                        option select frame frameset ilayer video 
+                        option select frame frameset ilayer video
                         isindex listing map noframes noembed nolayer
                         menu optgroup param textarea
                         canvas audio command datalist figure keygen source
@@ -67,7 +59,11 @@ sub sanitize_html {
            if ( my $style = $token->get_attr("style") )
            {
                my $css = CSS::Tiny->read_string("_null_ { $style }");
-               $token->set_attr( style => format_css($css->{_null_}) );
+               my $cleaned = format_css($css->{_null_});
+               $cleaned ?
+                   $token->set_attr( style => $cleaned )
+                   :
+                   $token->delete_attr("style")
            }
            if ( my $href = $token->get_attr("href") )
            {
@@ -104,30 +100,38 @@ sub sanitize_html {
        }
    }
 
+   my $guid = "GUID-7377CCD850F111E0BFA695BADFF11978";
    my $libxml = XML::LibXML->new;
    $libxml->recover_silently(1);
    my $doc = $libxml->parse_html_string(<<"");
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<head><title>untitled</title></head><body>
-<div id="0x7377CCD850F111E0BFA695BADFF11978">
+<html><head><title>untitled</title></head>
+<body>
+<div id="$guid">
 $renew
 </div>
 </body></html>
 
-   my $wrapper = [ $doc->findnodes('//div[@id="0x7377CCD850F111E0BFA695BADFF11978"]') ]->[0];
+   carp "Resulting document is not valid transitional XHTML\n", $doc->serialize(1)
+       unless $doc->is_valid;
+
+   my $wrapper = [ $doc->findnodes("//div[\@id='$guid']") ]->[0];
    my $renew2 = "";
    $wrapper->normalize;
-   for ( $wrapper->findnodes("//a") )
+   # Keep text the text in "<a>leftovers</a>."
+   for my $anchor ( $wrapper->findnodes("//a") )
    {
-       $_->parentNode->removeChild($_)
-           unless $_->hasAttribute("href");
+       next if $anchor->hasAttribute("href");
+       $anchor->parentNode->insertAfter($_,$anchor) for $anchor->childNodes;
    }
    for ( $wrapper->findnodes("//*") )
    {
        $_->parentNode->removeChild($_)
            unless $_->textContent() =~ /\S/;
    }
+
+#   warn $doc->serialize(1);
 
    $renew2 .= $_->serialize(1) for $wrapper->childNodes;
    $renew2 =~ s/\A\s+|\s+\z//g;
