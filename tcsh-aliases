@@ -11,8 +11,12 @@ alias max '$EDITOR ~/depot/apv/tcsh-aliases'
 # continue to check-in and source
 
 # CL
+alias rm "rm -i"
+alias cp "cp -i"
+alias mv "mv -i"
 alias k clear
 alias now 'date ; cal'
 alias x 'clear; echo "exiting..."; sleep 3; exit'
 alias zipit 'gnutar czvpf'
 alias unzipit 'gnutar xpfvz'
+
