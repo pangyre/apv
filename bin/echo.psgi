@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Plack::Request;
 use Data::Dump;
+
 sub {
     my $req = Plack::Request->new(shift);
     my $body = Data::Dump::dump($req);
@@ -15,3 +16,5 @@ sub {
              [ $body ]
            ];
 };
+
+# curl -X POST http://localhost:5000/ -F "self=@./echo.psgi"
