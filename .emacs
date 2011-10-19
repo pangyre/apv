@@ -210,3 +210,18 @@ __DATA__
 (prefer-coding-system 'utf-8)
 (setq file-name-coding-system  'utf-8)
 
+;; These need to be included with the path.
+(add-to-list 'load-path "/home/apv/el/")
+
+(autoload 'tt-mode "tt-mode.el"
+"Major mode for editing Template Toolkit documents." t)
+
+(add-to-list 'auto-mode-alist
+'("\\.tt\\'" . tt-mode))
+
+(autoload 'yaml-mode "yaml-mode.el"
+"Major mode for editing YAML documents." t)
+
+(add-to-list 'auto-mode-alist
+'("\\.yml\\'" . yaml-mode))
+
