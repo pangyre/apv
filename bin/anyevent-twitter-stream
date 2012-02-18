@@ -1,0 +1,94 @@
+#!/usr/bin/env perl
+use strictures;
+use AnyEvent::Twitter::Stream;
+use Getopt::Long;
+use Term::ReadKey;
+use utf8::all;
+use Encode;
+use Growl::Any;
+
+# $ENV{ANYEVENT_TWITTER_STREAM_SSL} = 1;
+
+GetOptions (
+#    "follow=s"   => \my @following,
+    "username=s" => \my $username,
+    "password=s" => \my $password,
+    "filter=s"   => \my $filter,
+    );
+
+$username || die "Need a username\n";
+
+unless ( $password )
+{
+    print "Password: ";
+    ReadMode("noecho");
+    $password = ReadLine(0);
+}
+
+my $growl = Growl::Any->new(appname => "MooCow", events => ["tweet"]);
+
+my $cv = AnyEvent->condvar;
+my $listener;
+$listener = AnyEvent::Twitter::Stream->new(
+    username => "pangyre", # $username,
+    password => $password,
+#    method   => $filter || "firehose",
+#    follow   => join(",", @following),
+    method => "filter",
+    track => $filter || "Perl",
+    on_tweet => sub {
+        my $tweet = shift;
+        printf("%s\n   %s\n\n",
+               $tweet->{user}{screen_name},
+               $tweet->{text});
+        # system("say", $tweet->{text});
+        $growl->notify(
+            "tweet",
+            $tweet->{user}{screen_name},
+            $tweet->{text},
+            $tweet->{user}{profile_image_url},
+            );
+    },
+    on_error => sub {
+        warn @_;
+        $cv->send;
+    },
+    on_keepalive => sub {
+        warn "ping\n";
+        # $cv->send;
+    },
+    on_delete => sub {
+        my ( $tweet_id, $user_id ) = @_; # callback executed when twitter send a delete notification
+        $cv->send;
+    },
+    on_event => sub {
+        $cv->send;
+    },
+    timeout => 600,
+    on_eof => sub { $cv->send },
+
+);
+
+$cv->recv;
+
+__END__
+
+old test...
+use AnyEvent::Twitter::Stream;
+use YAML;
+
+my $pass = shift || die "Give the password\n";
+
+
+my $stream = AnyEvent::Twitter::Stream->new(
+                                            username => "pangyre",
+                                            password => $pass,
+                                            method => "filter",
+                                            track => "#BreakingNews,#NewTwitter",
+                                            on_tweet => sub {
+                                                my $tweet = shift;
+                                                print YAML::Dump($tweet);
+                                            },
+                                            on_eof => $cv
+                                            );
+$cv->recv;
