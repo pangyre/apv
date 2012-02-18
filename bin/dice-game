@@ -1,0 +1,49 @@
+#!/usr/bin/env perl
+
+=head1 Question: Do you want to play this game?
+
+You put down some money and roll a die between 1 and 100. Depending on your roll-
+   1-50 --> I keep your money
+  51-65 --> You get your money back
+  66-75 --> You get 1.5 times your money
+  76-99 --> You get 2 times your money
+    100 --> You get 3 times your money
+
+Arguments-
+ -plays    How many times to play
+ -bet      How much to bet on each play
+
+I<Do you want to play?>
+
+=cut
+
+use strict;
+use Pod::Usage;
+use Getopt::Long;
+
+GetOptions ( "plays=i" => \my $plays,
+             "bet=f"   => \my $bet
+           );
+
+$plays and $bet or pod2usage(-verbose => 2);
+
+my $money = $plays * $bet;
+
+for ( 1 .. $plays ) {
+   my $roll = int( rand(100) + 1 );
+   if ( $roll <= 50 ) {
+       $money -= $bet;
+   } elsif ( ($roll >= 66) && ($roll <= 75) ) {
+       $money += 0.5 * $bet;
+   } elsif ( ($roll >= 76) && ($roll <= 99) ) {
+       $money += $bet;
+   } else {
+       $money += 2 * $bet;
+   }
+}
+
+printf("\$%.2f became \$%.2f after %d plays: ",
+       $bet * $plays, $money, $plays);
+
+printf("You get \$%.2f for a dollar\n",
+       $money / $bet * $plays );
