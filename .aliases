@@ -20,7 +20,7 @@ alias hs "perldoc -m HTTP::Status | perl -ne '/\A\s+100/ .. /510/ and print'"
 
 alias p 'sudo -u apache prove -l lib -v'
 alias hanged 'ps uawwx | egrep "^apv" | grep dev | grep -v dev'
-alias htd "perl -MHTML::Entities -le 'print decode_entities +shift'"
+alias htd "perl -CO -MHTML::Entities -le 'print decode_entities +shift'"
 # alias hte "perl -MHTML::Entities -le 'print HTML::Entities::encode_entities_numeric( +shift, "[\w\W]" )'"
 
 
