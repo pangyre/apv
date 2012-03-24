@@ -6,6 +6,7 @@ use Term::ReadKey;
 use utf8::all;
 use Encode;
 use Growl::Any;
+use HTML::Entities;
 
 # $ENV{ANYEVENT_TWITTER_STREAM_SSL} = 1;
 
@@ -45,7 +46,7 @@ $listener = AnyEvent::Twitter::Stream->new(
         $growl->notify(
             "tweet",
             $tweet->{user}{screen_name},
-            $tweet->{text},
+            decode_entities($tweet->{text}),
             $tweet->{user}{profile_image_url},
             );
     },
