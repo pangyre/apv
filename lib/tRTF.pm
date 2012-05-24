@@ -43,16 +43,8 @@ sub BUILD {
 
 sub text_content {
     my $self = shift;
-    my $text = "";
-    $text = $self->is_text;
-
-#    and $self->parent->first_child->argument eq "rtlch";
-#    and $self->parent->first_child->argument ne "*";
-
-    for my $kid ( $self->children )
-    {
-        $text .= $kid->text_content;
-    }
+    my $text = $self->is_text;
+    $text .= $_->text_content for $self->children;
     $text;
 }
 
