@@ -1,0 +1,346 @@
+#!/usr/bin/env perl
+#use strictures;
+no warnings "uninitialized";
+use open qw(:std :utf8);
+use Path::Class "dir";
+use Data::Dump "dump";
+
+my $rtf = rtf_tree( file => shift, sloppy => 1 );
+
+print $rtf->serialize;
+
+print "-"x70,$/,
+    $rtf->text_content(), $/,
+    "-"x70,$/;
+
+exit 0;
+
+#---------------------------------------------------------------------
+
+sub rtf_tree {
+    require RTF::Tokenizer;
+    {
+        package RTF::Tokenizer;
+        warnings->unimport('uninitialized');
+    }
+
+    unshift @_, (-e $_[0]) ? "file" : "string" if @_ == 1;
+
+
+    my $tokenizer = RTF::Tokenizer->new( @_ );
+
+    my $level = 0;
+
+    my $rtf = tRTF->new( type => "rtf" );
+    my $node;
+    while ( my ( $type, $argument, $parameter ) = $tokenizer->get_token() )
+    {
+        $node ||= $rtf;
+        if ( $type eq "group" )
+        {
+            if ( $argument )
+            {
+                my $group = tRTF->new( type => "group",
+                                    argument => $argument,
+                                parameter => $parameter, );
+            $node->add_child( $group );
+            $node = $group;
+        }
+        else
+        {
+            $node = $node->parent;
+        }
+        }
+        elsif ( $type eq "text" )
+        {
+            my $text = tRTF->new( type => "text",
+                                  argument => $argument,
+                                  parameter => $parameter );
+            $node->add_child( $text );
+        }
+        elsif ( $type eq "control" )
+        {
+            my $control = tRTF->new( type => "control",
+                                     argument => $argument,
+                                     parameter => $parameter );
+            $node->add_child( $control );
+        }
+        elsif ($type eq "eof")
+        {
+            last;
+        }
+        else
+        {
+            die "WHHHHHAAAAAAAA????????";
+        }
+    }
+    continue {
+        $level-- if ! $argument and $type eq "group";
+#        printf qq{%s |%-7s %s "%s" + "%s"\n},
+#            ("   " x $level), $type, $level, substr($argument,0,50) || "[undef]", $parameter || "[undef]";
+        $level++ if $argument and $type eq "group";
+    }
+    $rtf;
+}
+
+
+exit 0;
+
+BEGIN {
+    package nodeRole;
+    use Mouse::Role;
+    no warnings "uninitialized";
+
+    has "kids" =>
+        traits  => ["Array"],
+        is => "rw",
+        isa => "ArrayRef",
+        default => sub { [] },
+        handles => {
+            _add_child   => "push",
+            children     => "elements",
+#            map_options    => "map",
+            filter_children => "grep",
+#            find_option    => "first",
+            get_child      => "get",
+#            join_options   => "join",
+            size    => "count",
+#            has_no_options => "is_empty",
+#            sorted_options => "sort",
+        },
+        ;
+
+    sub first_child {
+        +shift->get_child(0);
+    }
+
+    sub add_child {
+        my $self = shift;
+        my $child = shift || confess "No child given";
+        # more validation blessed($child) ...
+        # Track index or anything like that?
+        $self->_add_child($child);
+        $child->_position($self->size);
+        $child->_set_parent($self);
+    }
+
+    has "parent" =>
+        is => "ro",
+        isa => "Any",
+        writer => "_set_parent",
+        weak_ref  => 1,
+        # isa => "tRTF",
+        ;
+
+    has "position" =>
+        is => "ro",
+        isa => "Any",
+        writer => "_position",
+        ;
+
+    sub ancestors {
+        my $self = shift;
+        my @lineage = ( $self->parent );
+        while ( $lineage[0] and $lineage[0]->parent )
+        {
+            unshift @lineage, $lineage[0]->parent;
+        }
+        @lineage;
+    }
+
+    sub root {
+        die "Find top node without parent";
+    }
+
+    sub siblings {
+        my $self = shift;
+        my $parent = $self->parent;;
+        return () if $parent->size <= 1;
+        my $skip = $self->position - 1;
+        my @indices = grep { $_ != $skip } ( 0 .. ( $parent->size - 1 ));
+        @{ $parent->kids }[@indices]; # 321 tweak!
+    }
+
+    sub previous {
+        my $self = shift;
+        return unless $self->position > 1;
+        $self->parent->get_child($self->position - 2); # with off-by-one.
+    }
+
+    sub next {
+        my $self = shift;
+        return unless $self->position < $self->parent->size;
+        $self->parent->get_child($self->position); # with off-by-one.
+    }
+
+    sub serialize {
+        my $self = shift;
+        my $indent = shift || 0;
+        my $serialization = shift || "";
+
+        $serialization .= # sprintf "%s%s\n", "   " x $indent, $self->type;
+        sprintf qq{%s |%-7s "%s" + "%s"\n},
+            ("   " x $indent), $self->type, substr($self->argument,0,90), $self->parameter;
+
+        $indent++;
+        for my $kid ( $self->children )
+        {
+            $serialization .= $kid->serialize($indent);
+        }
+        $indent--;
+
+        $serialization;
+    }
+
+    1;
+
+    #-----------------------------------
+    package tRTF;
+    use Mouse;
+    with "nodeRole";
+    use Mouse::Util::TypeConstraints;
+    no warnings "uninitialized";
+    use open qw(:std :utf8);
+
+    enum "tRTFname" => qw( rtf group control text );
+
+    has "type" =>
+        is => "rw",
+        isa => "tRTFname",
+        # lazy_build => 1,
+        ;
+
+    has "argument" =>
+        is => "ro",
+        isa => "Str",
+        predicate => "has_argument",
+        
+        ;
+ 
+    has "parameter" =>
+        is => "ro",
+        isa => "Str",
+        # lazy_build => 1,
+        ;
+ 
+    has "control" =>
+        is => "ro",
+        isa => "Str",
+        init_arg => undef,
+        writer => "_control",
+        ;
+ 
+    sub BUILD {
+        my $self = shift;
+        die "argument is required"
+            if $self->parent and not $self->has_argument;
+        $self->_control($self->argument) if $self->type eq "control";
+    }
+
+    sub text_content {
+        my $self = shift;
+        my $text = "";
+        $text = $self->argument if $self->is_text;
+
+#            and $self->parent->first_child->argument eq "rtlch";
+#            and $self->parent->first_child->argument ne "*";
+
+        for my $kid ( $self->children )
+        {
+            #$text .= $kid->parent->argument . " : ";
+            $text .= $kid->text_content;
+            #$text .= "\n";
+        }
+        $text;
+    }
+
+
+    my %TEXT = map {; $_ => 1 }
+        qw( rtf pard plain );
+
+    sub is_text {
+        my $self = shift;
+        return unless $self->type eq "text";
+        # print join(" + ", map { $_->control } $self->siblings), $/;
+        return if $self->argument =~ /(?<!\\);\z/;
+        my @siblings = $self->siblings;
+        return if @siblings > 1 and $self->parent->first_child->control eq "*";
+        return 1 if grep { $TEXT{$_->control} } $self->siblings;
+#        return 1 if grep { $TEXT{$_->control} } $self->parent->previous ? $self->parent->previous->children : ();
+        return;
+    }
+        #
+
+#        my @line = $self->ancestors;
+#        for my $line ( @line )
+#        {
+#            return if $line->size == 1;
+#            return if $line->first_child->control eq "*";
+#        }
+
+#        if ( my $prev = $self->previous )
+#        {
+#            return 1 if $prev->is_text;
+#        }
+        # Change to index/rindex
+
+#    \plain
+#    \pard
+
+#        print "-------------------------------\n";
+#        print $self->parent->serialize;
+#        print $self->serialize;
+
+#    has "text" =>
+#        is => "ro",
+#        init_arg => undef,
+#        isa => "Str",
+#        ;
+
+#    sub add_text { +shift->{text} .= join "", @_ }
+
+#    has "root" =>
+#        is => "rw",
+#        lazy_build => 1,
+#        ;
+
+#    has "node" => 
+#        is => "rw",
+#        lazy_build => 1,
+#        ;
+
+    __PACKAGE__->meta->make_immutable;
+}
+
+__DATA__
+
+    |group   1 "1" + "[undef]"
+       |control 2 "*" + "[undef]"
+       |control 2 "datastore" + "[undef]"
+       |text    2 "0105000002000000180000004d73786d6c322e534158584d4c" + "[undef]"
+    |group   1 "[undef]" + "[undef]"
+
+    |group   1 "1" + "[undef]"
+       |control 2 "rtlch" + "[undef]"
+       |control 2 "fcs" + "1"
+       |control 2 "af" + "[undef]"
+       |control 2 "afs" + "24"
+       |control 2 "ltrch" + "[undef]"
+       |control 2 "fcs" + "[undef]"
+       |control 2 "f" + "[undef]"
+       |control 2 "fs" + "24"
+       |control 2 "insrsid" + "9460415"
+       |control 2 "charrsid" + "9460415"
+       |text    2 " Preop evaluation regarding gastric bypass surgery" + "[undef]"
+       |control 2 "line" + "[undef]"
+       |control 2 "line" + "[undef]"
+       |text    2 "The patient has gone through the evaluation proces" + "[undef]"
+       |control 2 "line" + "[undef]"
+       |control 2 "line" + "[undef]"
+    |group   1 "[undef]" + "[undef]"
+
+
+~/perl5/lib/perl5/RTF/Parser.pm
+
+Very decent guide: http://www.biblioscape.com/rtf15_spec.htm
+    https://metacpan.org/module/The_RTF_Cookbook
