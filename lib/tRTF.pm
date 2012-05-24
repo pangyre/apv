@@ -58,9 +58,8 @@ sub text_content {
     $text;
 }
 
-
 my %TEXT = map {; $_ => 1 }
-qw( rtf pard plain );
+   qw( rtf pard plain );
 
 sub is_text {
     my $self = shift;
@@ -79,15 +78,12 @@ sub is_text {
 
 sub parse {
     my $self = shift;
+    $self->reset;
 
     unshift @_, (-e $_[0]) ? "file" : "string" if @_ == 1;
-
     my $tokenizer = RTF::Tokenizer->new( $_[0] => "$_[1]" );
 
-    my $level = 0;
-
     my $node;
-  TOKEN:
     while ( my ( $type, $arg, $param ) = $tokenizer->get_token() )
     {
         $node ||= $self;
@@ -95,7 +91,7 @@ sub parse {
         if ( $type eq "group" and $arg == 0 )
         {
             $node = $node->parent;
-            next TOKEN;
+            next;
         }
 
         my $kid = tRTF->new( type => $type,
@@ -104,7 +100,7 @@ sub parse {
 
         $node->add_child($kid);
 
-        last TOKEN if $type eq "eof";
+        last if $type eq "eof";
     }
     $self;
 }
@@ -138,6 +134,8 @@ BEGIN {
     sub first_child {
         +shift->get_child(0);
     }
+
+    sub reset { +shift->kids([]) }
 
     sub add_child {
         my $self = shift;
