@@ -58,7 +58,7 @@ subtest "Lines" => sub {
     ok( $rtf->parse( file => $fixture ),
         '$rtf->parse( file => $fixture )' );
 
-    my $esc = "one\\ntwo\\nfive";
+    my $esc = "one\\ntwo\\nfive\\n";
     my $expect = eval '"' . $esc . '"';
     is( $rtf->text_content, $expect, "Lines work: $esc" );
 };

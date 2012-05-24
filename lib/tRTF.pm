@@ -59,11 +59,22 @@ sub text_content {
 my %TEXT = map {; $_ => 1 }
    qw( rtf pard plain );
 
-my %CONTROL = ( line => "\n" );
-
+my %rtfEntity = (
+    line      => "\n",
+    par       => "\n",
+    tab       => "\t",
+    endash    => "\x2013",
+    emdash    => "\x2014",
+    lquote    => "\x2018",
+    rquote    => "\x2019",
+    ldblquote => "\x201c",
+    rdblquote => "\x201d",
+    bullet    => "\x2022",
+    );
+ 
 sub is_text {
     my $self = shift;
-    return $CONTROL{$self->control} if $CONTROL{$self->control};
+    return $rtfEntity{$self->control} if $rtfEntity{$self->control};
     return unless $self->type eq "text";
     return if $self->argument =~ /(?<!\\);\z/;
     my @siblings = $self->siblings;
