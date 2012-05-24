@@ -20,7 +20,7 @@ subtest "Hello, World!" => sub {
     my $fixture = file($fixtures,"hello.rtf");
 
     plan -e $fixture ?
-        ( tests => 2 ) : ( skip_all => "fixture $fixture is missing" );
+        ( tests => 3 ) : ( skip_all => "fixture $fixture is missing" );
 
     my $rtf = tRTF->new( type => "rtf" );
 
@@ -29,6 +29,12 @@ subtest "Hello, World!" => sub {
 
     is( $rtf->text_content, "Hello, World!",
         'Hello, World!' );
+
+    is( tRTF->new
+        ->parse( file => $fixture )
+        ->text_content,
+        "Hello, World!",
+        "new->parse->text_content" );
 };
 
 subtest "Minimal" => sub {

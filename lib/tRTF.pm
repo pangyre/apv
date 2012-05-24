@@ -13,12 +13,14 @@ has "type" =>
     is => "rw",
     isa => "tRTFname",
     required => 1,
+    lazy => 1,
+    default => "rtf",
     ;
 
 has "argument" =>
     is => "ro",
     isa => "Str",
-    predicate => "has_argument",    
+    predicate => "has_argument",
     ;
 
 has "parameter" =>
@@ -38,6 +40,8 @@ sub BUILD {
     my $self = shift;
     die "argument is required"
         if $self->parent and not $self->has_argument;
+    die "type => rtf can only be root"
+        if $self->parent and $self->type eq "rtf";
     $self->_control($self->argument) if $self->type eq "control";
 }
 
@@ -87,22 +91,18 @@ sub parse {
     while ( my ( $type, $arg, $param ) = $tokenizer->get_token() )
     {
         $node ||= $self;
-
         if ( $type eq "group" and $arg == 0 )
         {
             $node = $node->parent;
             next;
         }
 
-        my $kid = tRTF->new( type => $type,
-                             argument => $arg,
-                             parameter => $param );
-
-        $node->add_child($kid);
-
+        $node->add_child( tRTF->new( type => $type,
+                                     argument => $arg,
+                                     parameter => $param ) );
         last if $type eq "eof";
     }
-    $self;
+    $self; # For truth and chaining.
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -123,11 +123,6 @@ BEGIN {
             get_child       => "get",
             size            => "count",
             filter_children => "grep",
-#            map_options    => "map",
-#            find_option    => "first",
-#            join_options   => "join",
-#            has_no_options => "is_empty",
-#            sorted_options => "sort",
         },
     ;
 
@@ -141,7 +136,6 @@ BEGIN {
         my $self = shift;
         my $child = shift || confess "No child given";
         # more validation blessed($child) ...
-        # Track index or anything like that?
         $self->_add_child($child);
         $child->_position($self->size);
         $child->_set_parent($self);
