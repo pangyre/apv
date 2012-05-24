@@ -44,16 +44,14 @@ sub BUILD {
 sub text_content {
     my $self = shift;
     my $text = "";
-    $text = $self->argument if $self->is_text;
+    $text = $self->is_text;
 
-#            and $self->parent->first_child->argument eq "rtlch";
-#            and $self->parent->first_child->argument ne "*";
+#    and $self->parent->first_child->argument eq "rtlch";
+#    and $self->parent->first_child->argument ne "*";
 
     for my $kid ( $self->children )
     {
-        #$text .= $kid->parent->argument . " : ";
         $text .= $kid->text_content;
-        #$text .= "\n";
     }
     $text;
 }
@@ -61,18 +59,17 @@ sub text_content {
 my %TEXT = map {; $_ => 1 }
    qw( rtf pard plain );
 
+my %CONTROL = ( line => "\n" );
+
 sub is_text {
     my $self = shift;
+    return $CONTROL{$self->control} if $CONTROL{$self->control};
     return unless $self->type eq "text";
-    # print join(" + ", map { $_->control } $self->siblings), $/;
     return if $self->argument =~ /(?<!\\);\z/;
     my @siblings = $self->siblings;
     return if @siblings > 1 and $self->parent->first_child->control eq "*";
-    return 1 if grep { $TEXT{$_->control} } $self->siblings;
-#        return 1 if grep { $TEXT{$_->control} } $self->parent->previous ? $self->parent->previous->children : ();
-    return;
+    return $self->argument if grep { $TEXT{$_->control} } $self->siblings;
 }
-#
 
 #    sub add_text { +shift->{text} .= join "", @_ }
 

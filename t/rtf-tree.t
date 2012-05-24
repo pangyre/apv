@@ -47,6 +47,22 @@ subtest "Minimal" => sub {
     is( $rtf->text_content, $expect, $expect );
 };
 
+subtest "Lines" => sub {
+    my $fixture = file($fixtures,"lines.rtf");
+
+    plan -e $fixture ?
+        ( tests => 2 ) : ( skip_all => "fixture $fixture is missing" );
+
+    my $rtf = tRTF->new( type => "rtf" );
+
+    ok( $rtf->parse( file => $fixture ),
+        '$rtf->parse( file => $fixture )' );
+
+    my $esc = "one\\ntwo\\nfive";
+    my $expect = eval '"' . $esc . '"';
+    is( $rtf->text_content, $expect, "Lines work: $esc" );
+};
+
 done_testing();
 
 exit 0;
