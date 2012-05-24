@@ -5,8 +5,9 @@ use Mouse::Util::TypeConstraints;
 use strictures;
 no warnings "uninitialized";
 use open qw(:std :utf8);
+use RTF::Tokenizer;
 
-enum "tRTFname" => qw( rtf group control text );
+enum "tRTFname" => qw( rtf group control text eof );
 
 has "type" =>
     is => "rw",
@@ -77,12 +78,6 @@ sub is_text {
 #    sub add_text { +shift->{text} .= join "", @_ }
 
 sub parse {
-    require RTF::Tokenizer;
-#    { # Doesn't work...
-#        package RTF::Tokenizer;
-#        warnings->unimport('uninitialized');
-#    }
-
     my $self = shift;
 
     unshift @_, (-e $_[0]) ? "file" : "string" if @_ == 1;
@@ -92,52 +87,24 @@ sub parse {
     my $level = 0;
 
     my $node;
-    while ( my ( $type, $argument, $parameter ) = $tokenizer->get_token() )
+  TOKEN:
+    while ( my ( $type, $arg, $param ) = $tokenizer->get_token() )
     {
         $node ||= $self;
-        if ( $type eq "group" )
+
+        if ( $type eq "group" and $arg == 0 )
         {
-            if ( $argument )
-            {
-                my $group = tRTF->new( type => "group",
-                                       argument => $argument,
-                                       parameter => $parameter, );
-                $node->add_child( $group );
-                $node = $group;
-            }
-            else
-            {
-                $node = $node->parent;
-            }
+            $node = $node->parent;
+            next TOKEN;
         }
-        elsif ( $type eq "text" )
-        {
-            my $text = tRTF->new( type => "text",
-                                  argument => $argument,
-                                  parameter => $parameter );
-            $node->add_child( $text );
-        }
-        elsif ( $type eq "control" )
-        {
-            my $control = tRTF->new( type => "control",
-                                     argument => $argument,
-                                     parameter => $parameter );
-            $node->add_child( $control );
-        }
-        elsif ($type eq "eof")
-        {
-            last;
-        }
-        else
-        {
-            die "WHHHHHAAAAAAAA????????";
-        }
-    }
-    continue {
-        $level-- if ! $argument and $type eq "group";
-#        printf qq{%s |%-7s %s "%s" + "%s"\n},
-#            ("   " x $level), $type, $level, substr($argument,0,50) || "[undef]", $parameter || "[undef]";
-        $level++ if $argument and $type eq "group";
+
+        my $kid = tRTF->new( type => $type,
+                             argument => $arg,
+                             parameter => $param );
+
+        $node->add_child($kid);
+
+        last TOKEN if $type eq "eof";
     }
     $self;
 }
