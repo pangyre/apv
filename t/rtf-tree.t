@@ -53,7 +53,7 @@ subtest "Minimal" => sub {
     is( $rtf->text_content, $expect, $expect );
 };
 
-subtest "Lines" => sub {
+subtest "\\lines" => sub {
     my $fixture = file($fixtures,"lines.rtf");
 
     plan -e $fixture ?
