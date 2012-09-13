@@ -1,0 +1,24 @@
+use strictures;
+use Getopt::Long;
+use SQL::Translator;
+
+GetOptions( "schema=s" => \my $schema_class,
+            "producer=s" => \my $producer_class, );
+
+eval "use $schema_class";
+
+my $schema = $schema_class->connect;
+my $translator = SQL::Translator->new(
+    parser        => "SQL::Translator::Parser::DBIx::Class",
+    parser_args   => { package => $schema },
+    producer      => $producer_class || "Diagram",
+    producer_args => {
+        out_file       => "schema.png",
+        output_type    => "png",
+        title          => $schema_class,
+    },
+) or die SQL::Translator->error;
+
+$translator->translate;
+
+system "open", "schema.png";
