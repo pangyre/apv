@@ -1,8 +1,8 @@
 =head1 Outline Projects
 
+=head2 UX + Ajax (CRUD + undo/reset)
 
-
-=head2 Ksx + Ajax search
+=head2 Lucy + Ajax search
 
 =head2 UCD browser
 
