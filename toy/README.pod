@@ -1,0 +1,15 @@
+=head1 Outline Projects
+
+
+
+=head2 Ksx + Ajax search
+
+=head2 UCD browser
+
+=head2 10 in 10 Model modernization
+
+=head2 Plugin based filter system
+
+=head2 ...
+
+=cut
