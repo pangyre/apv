@@ -19,7 +19,7 @@ Transliteration (all roads lead to English-centric ASCII in this case) toy.
 
 =head2 A test string or two or three or ibid, etc, eg, cf, ie, et al
 
-  汉语/漢語 Hànyǔ, 华语/華語 Huáyǔ, 中文 Zhōngwén
+    北京, 香港, 上海, 新加坡共和国… சிங்கப்பூர் குடியரசு
  Φιμ αμετ αυδιρε φεριθυς ατ, νε φις δωλορε ινθεγρε ευισμοδ…
  l'été est arrivé à peine après aôut
  ¿España es un paìs muy lindo?
