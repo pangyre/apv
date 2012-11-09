@@ -5,7 +5,6 @@ use Encode;
 use Text::Unidecode;
 use Plack::Request;
 
-
 =pod
 
 =encoding utf8
@@ -19,7 +18,7 @@ Transliteration (all roads lead to English-centric ASCII in this case) toy.
 
 =head2 A test string or two or three or ibid, etc, eg, cf, ie, et al
 
-    北京, 香港, 上海, 新加坡共和国… சிங்கப்பூர் குடியரசு
+ 北京, 香港, 上海, 新加坡共和国… சிங்கப்பூர் குடியரசு
  Φιμ αμετ αυδιρε φεριθυς ατ, νε φις δωλορε ινθεγρε ευισμοδ…
  l'été est arrivé à peine après aôut
  ¿España es un paìs muy lindo?
