@@ -53,13 +53,15 @@ __DATA__
   <style>* { font-family: helvetica neue, helvetica }</style>
 </head>
 <body style="height:80%;width:90%;padding:5%;margin:0;">
-<h1>Xlit.psgi</h1>
+<h1><a href="https://github.com/pangyre/apv/blob/master/toy/xlit.psgi">xlit.psgi</a></h1>
 <form style="width:45%; float:left">
+<p>
   <textarea name="text" style="width:100%;
   height:15em">{TEXT}</textarea>
   <input type="submit" />
+</p>
 </form>
-<p style="width:45%; margin:0 3%; float:left; white-space:pre-wrap">
+<p style="width:45%; margin-left:3%; float:left; white-space:pre-wrap">
 {OUT}
 </p>
 </body>
