@@ -1,3 +1,4 @@
+#!/usr/bin/env perl
 use strictures;
 use Getopt::Long;
 use SQL::Translator;
@@ -5,7 +6,9 @@ use SQL::Translator;
 GetOptions( "schema=s" => \my $schema_class,
             "producer=s" => \my $producer_class, );
 
-eval "use $schema_class";
+$schema_class or die "-schema is required\n";
+
+eval "require $schema_class";
 
 my $schema = $schema_class->connect;
 my $translator = SQL::Translator->new(
@@ -22,3 +25,5 @@ my $translator = SQL::Translator->new(
 $translator->translate;
 
 system "open", "schema.png";
+
+__END__
