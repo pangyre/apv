@@ -2,15 +2,7 @@
 # base paths and put into the .tcshrc probably so a mirror version
 # from a perl-oneliner can translate to bash.
 
-alias hrs-dicom 'sudo lsof -Pni :6789 | ack \\\d | perl -lane "print /(\d+)/" | xargs ps'
-
-alias web-test 'k ; pwd ; sudo -u apache prove -l -Ixt/lib xt/web/ -v'
-alias cat-ers 'tail -f /usr/local/mpv4/hss/logs/log4perl.log'
-alias 6789 "sudo netstat -anp | ack \\b6789\\b | perl -lane 'print m,(\d+)/java,' | xargs ps"
-
-alias sct "clear ; pwd ; cd /usr/local/sct_tf"
-
-alias mpv4 "pwd; cd /usr/local/mpv4/repos/mpv4_repo"
+alias www "plackup -p 8282 -MPlack::App::Directory -e 'Plack::App::Directory->new({ root => q{.}})->to_app'"
 
 alias hs "perldoc -m HTTP::Status | perl -ne '/\A\s+100/ .. /510/ and print'"
 
@@ -22,7 +14,6 @@ alias p 'sudo -u apache prove -l lib -v'
 alias hanged 'ps uawwx | egrep "^apv" | grep dev | grep -v dev'
 alias htd "perl -CO -MHTML::Entities -le 'print decode_entities +shift'"
 # alias hte "perl -MHTML::Entities -le 'print HTML::Entities::encode_entities_numeric( +shift, "[\w\W]" )'"
-
 
 alias no-en-cvs 'cvs -qn update | grep "^?" | cut -f 2 -d " "'
 #alias tf "clear; tail -f"
