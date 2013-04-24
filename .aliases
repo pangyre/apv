@@ -2,7 +2,7 @@
 # base paths and put into the .tcshrc probably so a mirror version
 # from a perl-oneliner can translate to bash.
 
-alias www "plackup -p 8282 -MPlack::App::Directory -e 'Plack::App::Directory->new({ root => q{.}})->to_app'"
+alias www "plackup -p 8282 -MPlack::App::Directory -e 'Plack::App::Directory->new({root => q{.}})->to_app'"
 
 alias hs "perldoc -m HTTP::Status | perl -ne '/\A\s+100/ .. /510/ and print'"
 
