@@ -22,8 +22,7 @@ use Pod::Usage;
 use Getopt::Long;
 
 GetOptions ( "plays=i" => \my $plays,
-             "bet=f"   => \my $bet
-           );
+             "bet=f"   => \my $bet );
 
 $plays and $bet or pod2usage(-verbose => 2);
 
