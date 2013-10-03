@@ -20,6 +20,8 @@
 
 =item * http://semantic.gs/
 
+=item * https://github.com/h5bp/mobile-boilerplate
+
 =back
 
 =head2 JS shortlist
@@ -32,7 +34,7 @@
 
 =item * Fold all JS and CSS
 
-=item * E<lt>link rel="apple-touch-icon" href="/apple-touch-icon.png" /E<gt>
+=item * ...
 
 =back
 
