@@ -2,6 +2,8 @@
 
 =head1 Mobile Checklist
 
+=head2 Deployment
+
 =over 4
 
 =item * Fold all JS and CSS
