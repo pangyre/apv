@@ -20,7 +20,7 @@
 
 =item * http://semantic.gs/
 
-=item * https://github.com/h5bp/mobile-boilerplate
+=item * http://html5boilerplate.com/mobile/ | https://github.com/h5bp/mobile-boilerplate
 
 =back
 
