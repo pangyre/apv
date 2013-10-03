@@ -8,7 +8,7 @@ GetOptions( "schema=s" => \my $schema_class,
 
 $schema_class or die "-schema is required\n";
 
-eval "require $schema_class";
+eval "require $schema_class" or die $@;
 
 my $schema = $schema_class->connect;
 my $translator = SQL::Translator->new(
