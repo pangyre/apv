@@ -1,0 +1,21 @@
+#!/usr/bin/env perl
+use strictures;
+use open qw( :encoding(UTF-8) :std );
+use 5.01;
+# no warnings
+
+# Take a root URI, optional user and pass
+
+# Use the one OR spider it, keeping it local, on demand
+
+# Collect ALL HTML tags used
+
+# Diff against rulesheet
+
+# Minimize what remains
+
+
+__END__
+
+CSS::Minifier
+    JavaScript::Packer

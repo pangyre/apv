@@ -6,7 +6,7 @@ use Image::ExifTool;
 use Path::Class qw( file );
 
 #---------------------------------------------------------------------
-my $max_k = 5;
+my $max_k = 7.5;
 
 my $img = file(shift || die "Give me an image file.\n");
 

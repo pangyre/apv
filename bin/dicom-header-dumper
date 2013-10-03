@@ -1,0 +1,37 @@
+#!/usr/bin/env perl
+use open qw(:std :utf8);
+use strict;
+use warnings;
+use Image::ExifTool;
+use YAML;
+use Encode;
+no warnings "uninitialized";
+
+# Create aliases from this table:
+#   http://wiki.whatwg.org/wiki/Web_Encodings
+use Encode::Alias;
+define_alias( "ISO-2022-IR-149" => "euc-kr" );
+
+my $exif = Image::ExifTool->new();
+# $exif->Options( Verbose => 1 );
+my $file = shift || die "Give a dicom file!\n";
+my $info = $exif->ImageInfo($file);
+
+# print Dump($info);
+
+# SpecificCharacterSet: \ISO 2022 IR 149 -> ISO-2022-IR-149
+$info->{SpecificCharacterSet} =~ y/ \\/-/d;
+
+my $enc = find_encoding( $info->{SpecificCharacterSet} )
+    or die qq{No such encoding: "$info->{SpecificCharacterSet}"\n};
+
+print "PatientsName ($info->{PatientsName}) decoded through
+SpecificCharacterSet ($info->{SpecificCharacterSet}): ",
+    $enc->decode($info->{PatientsName}), $/;
+
+print "\nType: ", Image::ExifTool::GetFileType($file), $/;
+print "Desc: ", Image::ExifTool::GetFileType($file,1), $/;
+
+exit 0;
+
+__DATA__
