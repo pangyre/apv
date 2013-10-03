@@ -1,0 +1,38 @@
+=encoding utf8
+
+=head1 Mobile Checklist
+
+=over 4
+
+=item * Fold all JS and CSS
+
+=item * E<lt>link rel="apple-touch-icon" href="/apple-touch-icon.png" /E<gt>
+
+=back
+
+=head1 Technology
+
+=head2 CSS shortlist
+
+=over 4
+
+=item * http://semantic.gs/
+
+=back
+
+=head2 JS shortlist
+
+=head2 Backend options
+
+=head1 Resources
+
+=over 4
+
+=item * Fold all JS and CSS
+
+=item * E<lt>link rel="apple-touch-icon" href="/apple-touch-icon.png" /E<gt>
+
+=back
+
+
+=cut
