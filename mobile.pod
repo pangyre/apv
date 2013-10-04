@@ -26,6 +26,14 @@
 
 =head2 JS shortlist
 
+=over 4
+
+=item * http://www.pixijs.com/
+
+No 3D context.
+
+=back
+
 =head2 Backend options
 
 =over 4
