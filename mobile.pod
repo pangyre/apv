@@ -28,6 +28,8 @@
 
 =over 4
 
+=item * http://jquerymobile.com
+
 =item * http://www.pixijs.com/
 
 No 3D context.
