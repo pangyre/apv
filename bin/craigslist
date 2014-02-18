@@ -1,0 +1,104 @@
+#!/usr/bin/env perl
+use 5.012;
+use utf8;
+use strictures;
+use Text::Xslate;
+use WWW::Mechanize;
+# https://post.craigslist.org/bulk-rss/validate - Submit RSS to this URL to be validated.
+# https://post.craigslist.org/bulk-rss/post - Submit RSS to this URL to be posted.
+
+
+my $tx = Text::Xslate->new();
+my $template = do { local $/; <DATA> };
+say $tx->render_string( $template, data() );
+
+exit 0;
+
+sub data {
+    +{
+      poster => {
+                 username => "",
+                 password => "",
+                 accountID => "",
+                },
+      items => [ {
+                  title => "one",
+                  images => [],
+                  description => "<b>OHAI</b>!",
+                 } ],
+     };
+}
+
+__DATA__
+<?xml version="1.0"?>
+
+<rdf:RDF xmlns="http://purl.org/rss/1.0/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:cl="http://www.craigslist.org/about/cl-bulk-ns/1.0">
+
+  <channel>
+    <items>
+    : for $items -> $item {
+      <rdf:li rdf:resource="<: $item.title :>"/>
+    : }
+    </items>
+
+    <cl:auth username="<: $poster.username :>"
+             password="<: $poster.password :>"
+             accountID="<: $poster.accountID :>"/>
+  </channel>
+  : for $items -> $item {
+
+  <item rdf:about="<: $item.title :>">
+    <title><: $item.title :></title>
+    <description><![CDATA[
+        : mark_raw($item.description);
+    ]]></description>
+    <cl:category>fee</cl:category>
+    <cl:area>nyc</cl:area>
+    <cl:subarea>mnh</cl:subarea>
+    <cl:neighborhood>Upper West Side</cl:neighborhood>
+    <cl:housingInfo price="1450"
+                    bedrooms="0"
+                    sqft="600"/>
+    <cl:replyEmail
+        privacy="C">bulkuser@bulkposterz.net</cl:replyEmail>
+    <cl:brokerInfo companyName="Joe Sample and Associates"
+                   feeDisclosure="fee disclosure here" />
+  </item>
+
+  <item rdf:about="NYCBrokerHousingSample2">
+    <cl:category>fee</cl:category>
+    <cl:area>nyc</cl:area>
+    <cl:subarea>mnh</cl:subarea>
+    <cl:neighborhood>Chelsea</cl:neighborhood>
+    <cl:housingInfo price="2175"
+                    bedrooms="1"
+                    sqft="850"
+                    catsOK="1"/>
+    <cl:mapLocation city="New York"
+                    state="NY"
+                    crossStreet1="23rd Street"
+                    crossStreet2="9th Avenue"
+                    latitude="40.746492"
+                    longitude="-74.001326"
+    />
+    <cl:replyEmail privacy="C" 
+                   otherContactInfo="212.555.1212">
+      bulkuser@bulkposterz.net
+    </cl:replyEmail>
+    <cl:brokerInfo companyName="Joe Sample and Associates"
+                   feeDisclosure="fee disclosure here" />
+    <title>1BR Charmer in Chelsea</title>
+    <description><![CDATA[
+      posting body goes here
+    ]]></description>
+    <cl:PONumber>Purchase Order 094122</cl:PONumber>
+    : for $item.images -> $image {
+    <cl:image position="<: $~image.count :>">
+    </cl:image>
+    : }
+  </item>
+  : }
+
+</rdf:RDF>
