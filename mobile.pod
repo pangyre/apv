@@ -1,0 +1,58 @@
+=encoding utf8
+
+=head1 Mobile Checklist
+
+=head2 Deployment
+
+=over 4
+
+=item * Fold all JS and CSS
+
+=item * E<lt>link rel="apple-touch-icon" href="/apple-touch-icon.png" /E<gt>
+
+=back
+
+=head1 Technology
+
+=head2 CSS shortlist
+
+=over 4
+
+=item * http://semantic.gs/
+
+=item * http://html5boilerplate.com/mobile/ | https://github.com/h5bp/mobile-boilerplate
+
+=back
+
+=head2 JS shortlist
+
+=over 4
+
+=item * http://jquerymobile.com
+
+=item * http://www.pixijs.com/
+
+No 3D context.
+
+=back
+
+=head2 Backend options
+
+=over 4
+
+=item * http://amon.64p.org/
+
+=back
+
+=head1 Resources
+
+=over 4
+
+=item * Fold all JS and CSS
+
+=item * ...
+
+=back
+
+
+=cut
