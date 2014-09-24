@@ -1,6 +1,7 @@
 # This should be cleaned up A LOT, generalized, setup with vars for
 # base paths and put into the .tcshrc probably so a mirror version
 # from a perl-oneliner can translate to bash.
+alias uuid "perl -MData::UUID -le 'print Data::UUID->new->create_str'"
 
 alias www "plackup -p 8282 -MPlack::App::Directory -e 'Plack::App::Directory->new({root => q{.}})->to_app'"
 

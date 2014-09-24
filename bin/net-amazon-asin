@@ -1,14 +1,16 @@
 #!/usr/bin/env perl
-use strictures
+use strictures;
+no warnings "uninitialized";
 use Net::Amazon;
-use Log::Log4perl qw(:easy);
-Log::Log4perl->easy_init($DEBUG);
+#use Log::Log4perl qw(:easy);
+#Log::Log4perl->easy_init($DEBUG);
+use Data::Dump "pp";
 
 my $ua = Net::Amazon->new(
     associate_tag => $ENV{AMAZON_ASSOCIATE_TAG},
     token         => $ENV{AMAZON_TOKEN},
     secret_key    => $ENV{AMAZON_SECRET_KEY},
-    response_dump => 1,
+    # response_dump => 1,
 );
 
 my $resp = $ua->search(
@@ -17,6 +19,7 @@ my $resp = $ua->search(
 
 if($resp->is_success()) {
     print $resp->as_string(), "\n";
+    # print $resp->properties->{ImageUrlLarge};
 } else {
     print "Error: ", 
           $resp->message(), "\n";
