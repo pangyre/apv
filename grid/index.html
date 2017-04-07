@@ -29,7 +29,7 @@
     .container {
     height:100vh;
     width:calc(100vw - 2em);
-    margin:0 1.2em 0 .8em;
+    margin:0 1.3em 0 .7em;
     }
 
     .container header {
@@ -107,6 +107,7 @@
     }
 
     aside.text, nav.thumbnails, div.viewport, footer.caption {
+    background-color:black;
     font-size:.875rem;
     border:1px solid rgba(200,200,200,0.22);
     margin:0 0 .5ex 1ex;
@@ -124,21 +125,30 @@
     margin:1em auto;
     }
 
-    a.tab:active {
-    background-color:black; /* to whatever background lands */
-    color:yellow;
-    }
-
-    .tabs a.tab {
+    a.tab {
     text-decoration:none;
-    display:inline-block;
+    display:inline-block; 
     border:1px solid rgba(200,200,200,0.22);
     line-height:175%;
     height:25px;
     padding:0 1ex 0 1ex;
+    }
+
+    .tabs a.tab {
     margin:calc(5vh - 2em) 0 0 .5em;
+    color:#666;
+    box-shadow: 2px 3px 4px #111;
+    }
+
+    a.tab.hot, a.tab:active {
+    background-color:black; /* to whatever background lands */
+    color:yellow;
+    }
+
+    .tabs a.tab.hot {
     box-shadow: 2px 3px 4px #001;
     }
+
     div.border {
     border:1px solid rgba(200,200,200,0.22);
     }
@@ -160,7 +170,21 @@
         </aside>
       </div>
       <nav class="case">
-        Case Options
+        <a href="#" class="tab hot" onclick="return false;">Case Options</a>
+        <ul style="visibility:hidden">
+          <li><a href="#">Add to Folder</a></li>
+          <li><a href="#">Quick Edit</a></li>
+          <li><a href="#">Edit</a></li>
+          <li><a href="#">Certify</a></li>
+          <li><a href="#">Delete</a></li>
+          <li><a href="#">Email</a></li>
+          <li><a href="#">Export</a></li>
+          <li><a href="#">Export Image</a></li>
+          <li><a href="#">Powerpoint</a></li>
+          <li><a href="#">Publish</a></li>
+          <li><a href="#">Random Case</a></li>
+          <li><a href="#" onclick="return false;">Turn on<br />training mode</a></li>
+        </ul>
       </nav>
       <nav class="login">
         login/rate
@@ -169,7 +193,7 @@
 
     <article>
       <nav class="tabs">
-        <a class="tab" href="#" onclick="return false">History</a>
+        <a class="tab hot" href="#" onclick="return false">History</a>
         <a class="tab" href="#" onclick="return false">Findings</a>
         <a class="tab" href="#" onclick="return false">DDx</a>
         <a class="tab" href="#" onclick="return false">Diagnosis</a>
@@ -177,7 +201,6 @@
         <a class="tab" href="#" onclick="return false">References</a>
         <a class="tab" href="#" onclick="return false">Comments</a>
         <a class="tab" href="#" onclick="return false">About</a>
-
         radlex
       </nav>
       <aside class="text">
