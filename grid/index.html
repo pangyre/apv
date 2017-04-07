@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Page Title</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS
+       https://github.com/FremyCompany/css-grid-polyfill
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="normalize.css">
+
+  <style type="text/css">
+    html, body {
+    margin:0;
+    padding:0;
+    background-color:rgba(10,13,19,.8);
+    }
+
+    * {
+    color:white;
+    }
+
+    .container {
+    height:100vh;
+    width:calc(100vw - 2em);
+    margin:0 1.2em 0 .8em;
+    }
+
+    .container header {
+    overflow:hidden;
+    height:10vh;
+    display:grid;
+    grid-template-columns: 6fr 1fr;
+    grid-template-rows: 3vh 7vh;
+
+    grid-template-areas:
+    "siteNav caseNav"
+    "titleInfo login";
+    }
+
+    nav.site {
+    grid-area:siteNav;
+    margin:1ex 0;
+    font-size:.825rem;
+    }
+
+    nav.case {
+    grid-area:caseNav;
+    margin:1ex 0;
+    text-align:right;
+    }
+
+    nav.login {
+    grid-area:login;
+    margin-top:calc(7vh - 2em);
+    text-align:right;
+    }
+
+    .container header h1 {
+    font-size:1.5rem;
+    line-height:200%;
+    padding:0;
+    margin:0;
+    font-weight:500;
+    }
+    .container header h1, .container header aside {
+    margin-left:.6rem;
+    }
+    
+    .container article {
+    height:80vh;
+    display:grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 5vh 50vh 20vh 5vh;
+
+    grid-template-areas:
+    "tabs tabs"
+    "text viewport"
+    "thumbnails viewport"
+    "thumbnails caption";
+    }
+
+    nav.tabs {
+    grid-area:tabs;
+    }
+
+    aside.text {
+    grid-area:text;
+    }
+    
+    div.viewport {
+    grid-area:viewport;
+    }
+
+    nav.thumbnails {
+    grid-area:thumbnails;
+    }
+
+    footer.caption {
+    grid-area:caption;
+    }
+
+    aside.text, nav.thumbnails, div.viewport, footer.caption {
+    font-size:.875rem;
+    border:1px solid rgba(200,200,200,0.22);
+    margin:0 0 .5ex 1ex;
+    box-shadow: 2px 3px 4px #001;
+    }
+
+    aside.text, nav.thumbnails, footer.caption {
+    padding: .5ex .5em;
+    }
+
+    .container > footer {
+    font-size:.875rem;
+    height:calc(10vh - 2em);
+    text-align:center;
+    margin:1em auto;
+    }
+
+    a.tab:active {
+    background-color:black; /* to whatever background lands */
+    color:yellow;
+    }
+
+    .tabs a.tab {
+    text-decoration:none;
+    display:inline-block;
+    border:1px solid rgba(200,200,200,0.22);
+    line-height:175%;
+    height:25px;
+    padding:0 1ex 0 1ex;
+    margin:calc(5vh - 2em) 0 0 .5em;
+    box-shadow: 2px 3px 4px #001;
+    }
+    div.border {
+    border:1px solid rgba(200,200,200,0.22);
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <nav class="site">
+        Case Manager
+        Case x of y / prev + next
+      </nav>
+      <div>
+        <h1>Case title</h1>
+        <aside>
+          attribution
+        </aside>
+      </div>
+      <nav class="case">
+        Case Options
+      </nav>
+      <nav class="login">
+        login/rate
+      </nav>
+    </header>
+
+    <article>
+      <nav class="tabs">
+        <a class="tab" href="#" onclick="return false">History</a>
+        <a class="tab" href="#" onclick="return false">Findings</a>
+        <a class="tab" href="#" onclick="return false">DDx</a>
+        <a class="tab" href="#" onclick="return false">Diagnosis</a>
+        <a class="tab" href="#" onclick="return false">Discussion</a>
+        <a class="tab" href="#" onclick="return false">References</a>
+        <a class="tab" href="#" onclick="return false">Comments</a>
+        <a class="tab" href="#" onclick="return false">About</a>
+
+        radlex
+      </nav>
+      <aside class="text">
+        History findings notes and moo.
+      </aside>
+      <div class="viewport">
+      </div>      
+      <footer class="caption">
+        caption
+      </footer>
+      <nav class="thumbnails">
+        [*]         [*]         [*] 
+      </nav>
+    </article>
+    <footer>
+      Powered by PixieDust  &middot;
+      Disclaimer &middot; Contact Us &middot;  Help
+    </footer>
+  </div>
+
+</body>
+</html>
