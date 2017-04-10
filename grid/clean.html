@@ -13,7 +13,7 @@
     padding:0;
     background-color:#222;
     color: #eee;
-    font-size:14px;
+    font-size:16px;
     }
 
     header, article, footer
@@ -30,7 +30,7 @@
     display:grid;
     grid-template-columns: 100%;
     grid-template-rows: 15vh 77vh 8vh;
-    margin:0 1.3em 0 .6em;    
+    margin:0 1.25em 0 0.75em;
     grid-template-areas:
     "header"
     "article"
@@ -67,16 +67,6 @@
     text-align:right;
     }
 
-    nav.case a.tab {
-    list-style:none;
-    }
-    
-    .tabs a.tab {
-    margin:calc(5vh - 2em) 0 0 .5em;
-    color:#666;
-    box-shadow: 2px 3px 4px #111;
-    }
-
     .container > footer {
     height:calc(6vh);
     font-size: calc(.725em);
@@ -99,7 +89,7 @@
     height:77vh;
     display:grid;
     grid-template-columns: 2fr 5fr 1fr;
-    grid-template-rows: 4vh 50vh 18vh 5vh;
+    grid-template-rows: 4vh 45vh 23vh 5vh;
 
     grid-template-areas:
     "tabs tabs radlex"
@@ -127,12 +117,20 @@
     grid-area:caption;
     }
 
+    nav.case ul {
+    list-style:none;
+    }
+    
+    .tabs a.tab {
+    color:#666;
+    box-shadow: 2px 3px 4px #111;
+    }
+    
     a.tab {
     text-decoration:none;
     display:inline-block; 
     border:1px solid rgba(200,200,200,0.22);
-    line-height:;
-    padding:0 1ex 0 1ex;
+    padding:.2vh 1ex;
     }
     a.tab, .radlex {
     font-size:calc(.5rem + .625vw);
@@ -142,11 +140,13 @@
     color:yellow;
     }
 
-    aside.text, nav.thumbnails, div.viewport, footer.caption {
-    background-color:black;
-    font-size:.875rem;
-    border:1px solid rgba(200,200,200,0.22);
+    aside.text, nav.thumbnails, div.viewport, footer.caption, .tabs {
     margin:0 0 .5ex 1ex;
+    }
+
+    aside.text, nav.thumbnails, div.viewport, footer.caption {
+    border:1px solid rgba(200,200,200,0.22);
+    background-color:black;
     box-shadow: 2px 3px 4px #001;
     }
 
