@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="normalize.css">
+  <style type="text/css">
+    html, body {
+    font-family:"helvetica neue",helvetica,sans-serif;
+    margin:0;
+    padding:0;
+    background-color:rgba(10,13,19,.6);
+    color: #eee;
+    font-size:14px;
+    }
+
+    header, article, footer
+    {
+    nargin:0;
+    padding:0;
+    }
+
+    .container {
+    font-size: calc(.725em + 1vh);
+    box-sizing: border-box;    
+    height:100vh;
+    width:100vw;
+    display:grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 15vh 77vh 8vh;
+    
+    grid-template-areas:
+    "header"
+    "article"
+    "footer"
+    }
+
+    .container header {
+    display:grid;
+    height:10vh;
+
+    grid-template-columns: 6fr 1fr;
+    grid-template-rows: 2vh 8vh;
+
+    grid-template-areas:
+    "siteNav caseNav"
+    "titleInfo login";
+    }
+
+    .container > footer {
+    height:calc(6vh);
+    font-size: calc(.725em);
+    text-align:center;
+    margin:2vh auto 0 auto;
+    }
+
+
+    nav.site {
+    grid-area:siteNav;
+    margin:1ex 0;
+    font-size:.825em;
+    }
+
+    nav.case {
+    grid-area:caseNav;
+    margin:1ex 0;
+    text-align:right;
+    }
+
+    nav.login {
+    grid-area:login;
+    margin-top:calc(7vh - 2em);
+    text-align:right;
+    }
+
+    .container header h1 {
+    font-size:1.5em;
+    line-height:100%;
+    padding:0;
+    margin:1ex 0 0 0;
+    font-weight:400;
+    }
+    .container header h1, .container header aside {
+    margin-left:calc(.5rem + 1vw);
+    }
+    
+    @media screen and (max-height: 400px) {
+    .container * { visibility:hidden }
+    .unsupportedDisplay { display:block!important; position:absolute;
+    z-index:10000; top:0 }
+    }
+    @media screen and (max-width: 300px){
+    .container * { visibility:hidden }
+    .unsupportedDisplay { display:block!important; position:absolute;
+    z-index:10000; top:0 }
+    }
+  </style>
+
+</head>
+<body>
+  <blockquote class="unsupportedDisplay" style="display:none">
+    The current display size is not supported. Please enlarge your
+    browing window.
+  </blockquote>
+
+  <div class="container">
+    <header>
+      <nav class="site">
+        Case Manager
+        Case x of y / prev + next
+      </nav>
+      <div>
+        <h1>Case title</h1>
+        <aside>
+          attribution
+        </aside>
+      </div>
+      <nav class="case">
+        <a href="#" class="tab hot" onclick="return false;">Case Options</a>
+        <ul style="visibility:hidden">
+          <li><a href="#">Add to Folder</a></li>
+          <li><a href="#">Quick Edit</a></li>
+          <li><a href="#">Edit</a></li>
+          <li><a href="#">Certify</a></li>
+          <li><a href="#">Delete</a></li>
+          <li><a href="#">Email</a></li>
+          <li><a href="#">Export</a></li>
+          <li><a href="#">Export Image</a></li>
+          <li><a href="#">Powerpoint</a></li>
+          <li><a href="#">Publish</a></li>
+          <li><a href="#">Random Case</a></li>
+          <li><a href="#" onclick="return false;">Turn on<br />training mode</a></li>
+        </ul>
+      </nav>
+      <nav class="login">
+        login/rate
+      </nav>
+    </header>
+
+    <article>
+      article
+    </article>
+
+    <footer>
+      Powered by PixieDust  &middot;
+      Disclaimer &middot; Contact Us &middot;  Help
+    </footer>
+  </div>
+
+</body>
+</html>
