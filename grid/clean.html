@@ -61,8 +61,11 @@
     .siteNav, nav.case, .titleInfo, .login {
     font-size:.825em;
     }
-    .siteNav .previous, siteNav .next, .siteNav .xy {
+    .siteNav .previous, .siteNav .xy {
     margin-left:1em;
+    }
+    a.previous + a.next:before {
+    content:" · ";
     }
     .siteNav {
     grid-area:siteNav;
@@ -150,6 +153,8 @@
     }
     
     a.tab {
+    opacity:.8;
+    white-space:nowrap;
     color:#666;
     text-decoration:none;
     display:inline-block; 
@@ -162,6 +167,10 @@
     }
     a.tab.selected, a.tab:active {
     background-color:black; /* to whatever background lands */
+    font-weight:600;
+    opacity:1;
+    }
+    a.tab.selected, a.tab:active, a.tab.hasContent {
     color:yellow;
     }
 
@@ -195,8 +204,8 @@
       <nav class="siteNav">
         <a href="">Case Manager</a>
         <span class="xy">Case x of y</span>
-        <a href="" class="previous">◅ Previous</a>
-        <a href="" class="next">Next ▻</a>
+        <a href="#" class="previous">◅ Previous</a>
+        <a href="#" class="next">Next ▻</a>
       </nav>
       <div class="titleInfo">
         <h1>Case title</h1>
@@ -235,7 +244,7 @@
         <a class="tab" href="#" onclick="return false">Discussion</a>
         <a class="tab" href="#" onclick="return false">References</a>
         <a class="tab" href="#" onclick="return false">Comments</a>
-        <a class="tab" href="#" onclick="return false">About</a>
+        <a class="tab hasContent" href="#" onclick="return false">About</a>
       </nav>
       <nav class="radlex">
         radlex
