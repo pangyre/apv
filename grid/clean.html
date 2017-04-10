@@ -11,7 +11,7 @@
     font-family:"helvetica neue",helvetica,sans-serif;
     margin:0;
     padding:0;
-    background-color:rgba(10,13,19,.6);
+    background-color:#222;
     color: #eee;
     font-size:14px;
     }
@@ -26,11 +26,11 @@
     font-size: calc(.725em + 1vh);
     box-sizing: border-box;    
     height:100vh;
-    width:100vw;
+    width:calc(100vw - 2em);
     display:grid;
     grid-template-columns: 100%;
     grid-template-rows: 15vh 77vh 8vh;
-    
+    margin:0 1.3em 0 .6em;    
     grid-template-areas:
     "header"
     "article"
@@ -49,13 +49,22 @@
     "titleInfo login";
     }
 
+    nav.case a.tab {
+    list-style:none;
+    }
+    
+    .tabs a.tab {
+    margin:calc(5vh - 2em) 0 0 .5em;
+    color:#666;
+    box-shadow: 2px 3px 4px #111;
+    }
+
     .container > footer {
     height:calc(6vh);
     font-size: calc(.725em);
     text-align:center;
     margin:2vh auto 0 auto;
     }
-
 
     nav.site {
     grid-area:siteNav;
@@ -82,10 +91,67 @@
     margin:1ex 0 0 0;
     font-weight:400;
     }
-    .container header h1, .container header aside {
+    .container header h1, .container header aside.attribution {
     margin-left:calc(.5rem + 1vw);
     }
-    
+
+    .container article {
+    height:77vh;
+    display:grid;
+    grid-template-columns: 2fr 5fr 1fr;
+    grid-template-rows: 4vh 50vh 18vh 5vh;
+
+    grid-template-areas:
+    "tabs tabs radlex"
+    "text viewport viewport"
+    "thumbnails viewport viewport"
+    "thumbnails caption caption";
+    }
+
+    nav.tabs {
+    grid-area:tabs;
+    }
+    nav.radlex {
+    grid-area:radlex;
+    }
+    aside.text {
+    grid-area:text;
+    }
+    div.viewport {
+    grid-area:viewport;
+    }
+    nav.thumbnails {
+    grid-area:thumbnails;
+    }
+    footer.caption {
+    grid-area:caption;
+    }
+
+    a.tab {
+    text-decoration:none;
+    display:inline-block; 
+    border:1px solid rgba(200,200,200,0.22);
+    line-height:;
+    padding:0 1ex 0 1ex;
+    }
+    a.tab, .radlex {
+    font-size:calc(.5rem + .625vw);
+    }
+    a.tab.hot, a.tab:active {
+    background-color:black; /* to whatever background lands */
+    color:yellow;
+    }
+
+
+
+    aside.text, nav.thumbnails, div.viewport, footer.caption {
+    background-color:black;
+    font-size:.875rem;
+    border:1px solid rgba(200,200,200,0.22);
+    margin:0 0 .5ex 1ex;
+    box-shadow: 2px 3px 4px #001;
+    }
+
     @media screen and (max-height: 400px) {
     .container * { visibility:hidden }
     .unsupportedDisplay { display:block!important; position:absolute;
@@ -113,7 +179,7 @@
       </nav>
       <div>
         <h1>Case title</h1>
-        <aside>
+        <aside class="attribution">
           attribution
         </aside>
       </div>
@@ -140,7 +206,30 @@
     </header>
 
     <article>
-      article
+      <nav class="tabs">
+        <a class="tab hot" href="#" onclick="return false">History</a>
+        <a class="tab" href="#" onclick="return false">Findings</a>
+        <a class="tab" href="#" onclick="return false">DDx</a>
+        <a class="tab" href="#" onclick="return false">Diagnosis</a>
+        <a class="tab" href="#" onclick="return false">Discussion</a>
+        <a class="tab" href="#" onclick="return false">References</a>
+        <a class="tab" href="#" onclick="return false">Comments</a>
+        <a class="tab" href="#" onclick="return false">About</a>
+      </nav>
+      <nav class="radlex">
+        radlex
+      </nav>
+      <aside class="text">
+        History findings notes and moo.
+      </aside>
+      <div class="viewport">
+      </div>      
+      <footer class="caption">
+        caption
+      </footer>
+      <nav class="thumbnails">
+        [*]         [*]         [*] 
+      </nav>
     </article>
 
     <footer>
