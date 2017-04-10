@@ -162,7 +162,8 @@
     .unsupportedDisplay { display:block!important; position:absolute;
     z-index:10000; top:0 }
     }
-    @media screen and (max-width: 400px){
+    @media screen and (max-width: 600px)
+      and (-webkit-min-device-pixel-ratio: 1) {
     .container * { visibility:hidden }
     .unsupportedDisplay { display:block!important; position:absolute;
     z-index:10000; top:0 }
