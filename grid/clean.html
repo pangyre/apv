@@ -157,12 +157,15 @@
     box-shadow: 2px 3px 4px #000005;
     }
 
-    @import url("not-supported.css") screen and (max-height: 500px);
+    @import url("not-supported.css") screen and (max-height: 500px); /* wrong */
 
     @media screen and (max-height: 500px) {
+    .container { visibility:hidden }
+    .unsupportedDisplay { display:block!important; position:absolute;
+    z-index:10000; top:0 }
     }
     @media screen and (max-width: 600px) {
-    .container * { visibility:hidden }
+    .container { visibility:hidden }
     .unsupportedDisplay { display:block!important; position:absolute;
     z-index:10000; top:0 }
     }
