@@ -23,7 +23,7 @@
     }
 
     .container {
-    font-size: calc(.725em + 1vh);
+    font-size: calc(.725em + 0.725vh);
     box-sizing: border-box;    
     height:100vh;
     width:calc(100vw - 2em);
@@ -100,12 +100,15 @@
 
     nav.tabs {
     grid-area:tabs;
+    padding-top:.725vh;
     }
     nav.radlex {
     grid-area:radlex;
     }
-    aside.text {
+    aside.text, footer.caption {
     grid-area:text;
+    font-size:calc(.825em);
+    font-weight:normal;
     }
     div.viewport {
     grid-area:viewport;
