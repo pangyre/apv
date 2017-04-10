@@ -39,14 +39,32 @@
 
     .container header {
     display:grid;
-    height:10vh;
+    height:15vh;
 
     grid-template-columns: 6fr 1fr;
-    grid-template-rows: 2vh 8vh;
+    grid-template-rows: 5vh 10vh;
 
     grid-template-areas:
     "siteNav caseNav"
     "titleInfo login";
+    }
+    .siteNav, nav.case, .titleInfo, .login {
+
+    }
+    .siteNav {
+    grid-area:siteNav;
+    font-size:.825em;
+    }
+    .titleInfo {
+    grid-area:titleInfo;
+    }
+    nav.case {
+    grid-area:caseNav;
+    text-align:right;
+    }
+    nav.login {
+    grid-area:login;
+    text-align:right;
     }
 
     nav.case a.tab {
@@ -66,29 +84,11 @@
     margin:2vh auto 0 auto;
     }
 
-    nav.site {
-    grid-area:siteNav;
-    margin:1ex 0;
-    font-size:.825em;
-    }
-
-    nav.case {
-    grid-area:caseNav;
-    margin:1ex 0;
-    text-align:right;
-    }
-
-    nav.login {
-    grid-area:login;
-    margin-top:calc(7vh - 2em);
-    text-align:right;
-    }
-
     .container header h1 {
     font-size:1.5em;
     line-height:100%;
     padding:0;
-    margin:1ex 0 0 0;
+    margin:0 0 0 0;
     font-weight:400;
     }
     .container header h1, .container header aside.attribution {
@@ -142,8 +142,6 @@
     color:yellow;
     }
 
-
-
     aside.text, nav.thumbnails, div.viewport, footer.caption {
     background-color:black;
     font-size:.875rem;
@@ -173,11 +171,11 @@
 
   <div class="container">
     <header>
-      <nav class="site">
+      <nav class="siteNav">
         Case Manager
         Case x of y / prev + next
       </nav>
-      <div>
+      <div class="titleInfo">
         <h1>Case title</h1>
         <aside class="attribution">
           attribution
