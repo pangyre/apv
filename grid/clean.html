@@ -133,7 +133,6 @@
     
     .tabs a.tab {
     color:#666;
-    box-shadow: 2px 3px 4px #111;
     }
     
     a.tab {
@@ -141,11 +140,12 @@
     display:inline-block; 
     border:1px solid rgba(200,200,200,0.22);
     padding:.2vh 1ex;
+    box-shadow: 2px 3px 4px #111;
     }
     a.tab, .radlex {
     font-size:calc(.5rem + .625vw);
     }
-    a.tab.hot, a.tab:active {
+    a.tab.selected, a.tab:active {
     background-color:black; /* to whatever background lands */
     color:yellow;
     }
@@ -192,7 +192,7 @@
         </aside>
       </div>
       <nav class="case">
-        <a href="#" class="tab hot" onclick="return false;">Case Options</a>
+        <a href="#" class="tab selected" onclick="return false;">Case Options</a>
         <ul style="visibility:hidden">
           <li><a href="#">Add to Folder</a></li>
           <li><a href="#">Quick Edit</a></li>
@@ -215,7 +215,7 @@
 
     <article>
       <nav class="tabs">
-        <a class="tab hot" href="#" onclick="return false">History</a>
+        <a class="tab selected" href="#" onclick="return false">History</a>
         <a class="tab" href="#" onclick="return false">Findings</a>
         <a class="tab" href="#" onclick="return false">DDx</a>
         <a class="tab" href="#" onclick="return false">Diagnosis</a>
