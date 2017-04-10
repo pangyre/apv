@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width" />
   <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet"
+        href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <style type="text/css">
     html, body {
     font-family:"helvetica neue",helvetica,sans-serif;
@@ -22,6 +24,14 @@
     padding:0;
     }
 
+    a {
+    color:yellow;
+    text-decoration:none;
+    }
+    nav, .text {
+    font-weight:200;
+    }
+    
     .container {
     font-size: calc(.725em + 0.725vh);
     box-sizing: border-box;    
@@ -51,9 +61,13 @@
     .siteNav, nav.case, .titleInfo, .login {
     font-size:.825em;
     }
+    .siteNav .previous, siteNav .next, .siteNav .xy {
+    margin-left:1em;
+    }
     .siteNav {
     grid-area:siteNav;
     padding-top:1vh;
+    font-size:.75em;
     }
     .titleInfo {
     grid-area:titleInfo;
@@ -123,10 +137,14 @@
 
     aside.text, nav.thumbnails, footer.caption {
     font-size:calc(.825em);
-    font-weight:normal;
     padding: .5ex .5em;
     }
-
+    aside.text {
+    display:none;
+    }
+    aside.text:first-of-type {
+    display:block;
+    }
     nav.case ul {
     list-style:none;
     }
@@ -175,8 +193,10 @@
   <div class="container">
     <header>
       <nav class="siteNav">
-        Case Manager
-        Case x of y / prev + next
+        <a href="">Case Manager</a>
+        <span class="xy">Case x of y</span>
+        <a href="" class="previous">◅ Previous</a>
+        <a href="" class="next">Next ▻</a>
       </nav>
       <div class="titleInfo">
         <h1>Case title</h1>
@@ -185,7 +205,7 @@
         </aside>
       </div>
       <nav class="case">
-        <a href="#" class="tab selected" onclick="return false;">Case Options</a>
+        <a href="#" class="tab selected" onclick="return false;">☰ Case Options</a>
         <ul style="visibility:hidden">
           <li><a href="#">Add to Folder</a></li>
           <li><a href="#">Quick Edit</a></li>
@@ -220,8 +240,14 @@
       <nav class="radlex">
         radlex
       </nav>
-      <aside class="text">
+      <aside class="text history">
         History findings notes and moo.
+      </aside>
+      <aside class="text findings">
+        Something found out.
+      </aside>
+      <aside class="text quiz">
+        QUIZ
       </aside>
       <div class="viewport">
       </div>      
