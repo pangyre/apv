@@ -30,7 +30,7 @@
     color:yellow;
     text-decoration:none;
     }
-    nav, .text {
+    nav, .text, footer {
     font-weight:200;
     }
     
@@ -155,7 +155,6 @@
     }
     
     a.tab {
-    opacity:.8;
     white-space:nowrap;
     color:#666;
     text-decoration:none;
@@ -164,12 +163,15 @@
     padding:.2vh 1ex;
     box-shadow: 2px 3px 4px #000005;
     }
+    .tabs a.tab {
+    opacity:.8;
+    }
     a.tab, .radlex {
     font-size:calc(.5rem + .625vw);
     }
     a.tab.selected, a.tab:active {
     background-color:black; /* to whatever background lands */
-    font-weight:600;
+
     opacity:1;
     }
     a.tab.selected, a.tab:active, a.tab.hasContent {
