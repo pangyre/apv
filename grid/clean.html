@@ -107,8 +107,6 @@
     }
     aside.text, footer.caption {
     grid-area:text;
-    font-size:calc(.825em);
-    font-weight:normal;
     }
     div.viewport {
     grid-area:viewport;
@@ -118,6 +116,12 @@
     }
     footer.caption {
     grid-area:caption;
+    }
+
+    aside.text, nav.thumbnails, footer.caption {
+    font-size:calc(.825em);
+    font-weight:normal;
+    padding: .5ex .5em;
     }
 
     nav.case ul {
