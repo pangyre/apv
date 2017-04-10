@@ -137,7 +137,7 @@
     display:inline-block; 
     border:1px solid rgba(200,200,200,0.22);
     padding:.2vh 1ex;
-    box-shadow: 2px 3px 4px #000010;
+    box-shadow: 2px 3px 4px #000005;
     }
     a.tab, .radlex {
     font-size:calc(.5rem + .625vw);
@@ -154,13 +154,12 @@
     aside.text, nav.thumbnails, div.viewport, footer.caption {
     border:1px solid rgba(200,200,200,0.22);
     background-color:black;
-    box-shadow: 2px 3px 4px #000010;
+    box-shadow: 2px 3px 4px #000005;
     }
 
+    @import url("not-supported.css") screen and (max-height: 500px);
+
     @media screen and (max-height: 500px) {
-    .container * { visibility:hidden }
-    .unsupportedDisplay { display:block!important; position:absolute;
-    z-index:10000; top:0 }
     }
     @media screen and (max-width: 600px) {
     .container * { visibility:hidden }
