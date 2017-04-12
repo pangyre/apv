@@ -125,11 +125,11 @@
     "thumbnails caption caption";
     }
 
-    nav.tabs {
+    .tabs {
     grid-area:tabs;
     padding-top:.725vh;
     }
-    nav.radlex {
+    .radlex {
     grid-area:radlex;
     }
     aside.text, footer.caption {
@@ -155,10 +155,14 @@
     aside.text:first-of-type {
     display:block;
     }
-    nav.case ul {
+
+    ul, li {
     list-style:none;
+    display:inline-block;
+    margin:0;
+    padding:0;
     }
-    
+
     a.tab {
     white-space:nowrap;
     color:#666;
@@ -245,19 +249,35 @@
     </header>
 
     <article>
-      <nav class="tabs">
-        <a class="tab selected" href="#" onclick="return false">History</a>
-        <a class="tab" href="#" onclick="return false">Findings</a>
-        <a class="tab" href="#" onclick="return false">DDx</a>
-        <a class="tab" href="#" onclick="return false">Diagnosis</a>
-        <a class="tab" href="#" onclick="return false">Discussion</a>
-        <a class="tab" href="#" onclick="return false">References</a>
-        <a class="tab" href="#" onclick="return false">Comments</a>
-        <a class="tab hasContent" href="#" onclick="return false">About</a>
-      </nav>
-      <nav class="radlex">
+      <ul class="tabs">
+        <li>
+          <a class="tab selected" href="#" onclick="return false">History</a>
+        </li>
+        <li>
+          <a class="tab" href="#" onclick="return false">Findings</a>
+        </li>
+        <li>
+          <a class="tab" href="#" onclick="return false">DDx</a>
+        </li>
+        <li>
+          <a class="tab" href="#" onclick="return false">Diagnosis</a>
+        </li>
+        <li>
+          <a class="tab" href="#" onclick="return false">Discussion</a>
+        </li>
+        <li>
+          <a class="tab" href="#" onclick="return false">References</a>
+        </li>
+        <li>
+          <a class="tab" href="#" onclick="return false">Comments</a>
+        </li>
+        <li>
+          <a class="tab hasContent" href="#" onclick="return false">About</a>
+        </li>
+      </ul>
+      <div class="radlex">
         radlex
-      </nav>
+      </div>
       <aside class="text history">
         History findings notes and moo.
       </aside>
