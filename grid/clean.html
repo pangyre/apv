@@ -173,14 +173,13 @@
     box-shadow: 2px 3px 4px #000005;
     }
     .tabs a.tab {
-    opacity:.8;
+    opacity:0.5;
     }
     a.tab, .radlex {
     font-size:calc(.5rem + .625vw);
     }
     a.tab.selected, a.tab:active {
     background-color:black; /* to whatever background lands */
-
     opacity:1;
     }
     a.tab.selected, a.tab:active, a.tab.hasContent {
@@ -251,28 +250,28 @@
     <article>
       <ul class="tabs">
         <li>
-          <a class="tab selected" href="#" onclick="return false">History</a>
+          <a class="tab selected hasContent" href="#history">History</a>
         </li>
         <li>
-          <a class="tab" href="#" onclick="return false">Findings</a>
+          <a class="tab hasContent" href="#findings">Findings</a>
         </li>
         <li>
-          <a class="tab" href="#" onclick="return false">DDx</a>
+          <a class="tab" href="#ddx">DDx</a>
         </li>
         <li>
-          <a class="tab" href="#" onclick="return false">Diagnosis</a>
+          <a class="tab" href="#diagnosis">Diagnosis</a>
         </li>
         <li>
-          <a class="tab" href="#" onclick="return false">Discussion</a>
+          <a class="tab" href="#discussion">Discussion</a>
         </li>
         <li>
-          <a class="tab" href="#" onclick="return false">References</a>
+          <a class="tab" href="#references">References</a>
         </li>
         <li>
-          <a class="tab" href="#" onclick="return false">Comments</a>
+          <a class="tab" href="#comments">Comments</a>
         </li>
         <li>
-          <a class="tab hasContent" href="#" onclick="return false">About</a>
+          <a class="tab hasContent" href="#about">About</a>
         </li>
       </ul>
       <div class="radlex">
@@ -284,11 +283,14 @@
       <aside class="text findings">
         Something found out.
       </aside>
+      <aside class="text about">
+        &rsquo;Bout it, &rsquo;bout it.
+      </aside>
       <aside class="text quiz">
         QUIZ
       </aside>
       <div class="viewport">
-      </div>      
+      </div>
       <footer class="caption">
         caption
       </footer>
@@ -306,7 +308,15 @@
   <blockquote class="unsupportedDisplay" style="display:none">
     The current display size is not supported. Please enlarge your browsing window.
   </blockquote>
-
+  <script type="text/javascript">
+    $("ul.tabs a").on("click",function(event){
+    var $link = $(event.target);
+    var tab = $link.attr("href").substr(1);
+    var $tab = $(document.getElementsByClassName(tab));
+    $tab.siblings("aside").hide().end().show();
+    $link.addClass("selected").parent().siblings().find(".tab").removeClass("selected");
+    });
+  </script>
   <script src="js/css-polyfills.min.js" type="text/javascript"></script>
 </body>
 </html>
