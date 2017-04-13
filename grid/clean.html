@@ -8,204 +8,210 @@
         href="//cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.min.css"
         integrity="sha256-VbcxqgMGQYm3q8qZMd63uETHXXZkqs7ME1bEvAY1xK8="
         crossorigin="anonymous" /> <!-- Not necessary/used yet -->
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <link rel="stylesheet"
-         href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet"
+        href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <!--   <link rel="stylesheet"
                 href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
 
   <style type="text/css">
-    html, body {
-    font-family:"helvetica neue",helvetica,sans-serif;
-    margin:0;
-    padding:0;
-    background-color:#222;
-    color: #eee;
-    font-size:16px;
-    }
+   html, body {
+     font-family:"helvetica neue",helvetica,sans-serif;
+     margin:0;
+     padding:0;
+     background-color:#222;
+     color: #eee;
+     font-size:16px;
+   }
 
-    header, article, footer
-    {
-    margin:0;
-    padding:0;
-    }
+   header, article, footer {
+     margin:0;
+     padding:0;
+   }
 
-    a {
-    color:yellow;
-    text-decoration:none;
-    }
-    nav, .text, footer {
-    font-weight:200;
-    }
-    
-    .container {
-    font-size: calc(.725em + 0.725vh);
-    box-sizing: border-box;    
-    height:100vh;
-    width:calc(100vw - 2em);
-    display:grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 12vh 80vh 8vh;
-    margin:0 1.25em 0 0.75em;
-    grid-template-areas:
-    "header"
-    "article"
-    "footer"
-    }
+   a {
+     color:yellow;
+     text-decoration:none;
+   }
+   nav, .text, footer {
+     font-weight:200;
+   }
+   
+   .container {
+     font-size: calc(.725em + 0.725vh);
+     box-sizing: border-box;    
+     height:100vh;
+     width:calc(100vw - 2em);
+     display:grid;
+     grid-template-columns: 100%;
+     grid-template-rows: 12vh 80vh 8vh;
+     margin:0 1.25em 0 0.75em;
+     grid-template-areas:
+     "header"
+     "article"
+     "footer"
+   }
 
-    .container header {
-    display:grid;
-    height:15vh;
+   .container header {
+     display:grid;
+     height:15vh;
 
-    grid-template-columns: 6fr 1fr;
-    grid-template-rows: 4vh 8vh;
+     grid-template-columns: 6fr 1fr;
+     grid-template-rows: 4vh 8vh;
 
-    grid-template-areas:
-    "siteNav caseNav"
-    "titleInfo login";
-    }
-    .siteNav, nav.case, .titleInfo, .login {
-    font-size:.825em;
-    }
-    .siteNav .previous, .siteNav .xy {
-    margin-left:1em;
-    }
-    a.previous + a.next:before {
-    content:" · ";
-    }
-    .siteNav {
-    grid-area:siteNav;
-    padding-top:1vh;
-    font-size:.75em;
-    }
-    .titleInfo {
-    grid-area:titleInfo;
-    }
-    nav.case {
-    grid-area:caseNav;
-    text-align:right;
-    padding-top:1vh;
-    }
-    nav.login {
-    grid-area:login;
-    text-align:right;
-    padding-top:2vh;
-    }
+     grid-template-areas:
+     "siteNav caseNav"
+     "titleInfo login";
+   }
+   .siteNav, nav.case, .titleInfo, .login {
+     font-size:.825em;
+   }
+   .siteNav .previous, .siteNav .xy {
+     margin-left:1em;
+   }
+   a.previous + a.next:before {
+     content:" · ";
+   }
+   .siteNav {
+     grid-area:siteNav;
+     padding-top:1vh;
+     font-size:.75em;
+   }
+   .titleInfo {
+     grid-area:titleInfo;
+   }
+   nav.case {
+     grid-area:caseNav;
+     text-align:right;
+     padding-top:1vh;
+   }
+   nav.login {
+     grid-area:login;
+     text-align:right;
+     padding-top:2vh;
+   }
 
+   .container > footer {
+     height:calc(6vh);
+     font-size: calc(.725em);
+     text-align:center;
+     margin:2vh auto 0 auto;
+   }
 
-    .container > footer {
-    height:calc(6vh);
-    font-size: calc(.725em);
-    text-align:center;
-    margin:2vh auto 0 auto;
-    }
+   .container header h1 {
+     font-size:2em;
+     line-height:100%;
+     padding:0;
+     margin:0 0 0 0;
+     font-weight:400;
+   }
+   .container header h1, .container header aside.attribution {
+     margin-left:calc(.5rem + 1vw);
+   }
 
-    .container header h1 {
-    font-size:2em;
-    line-height:100%;
-    padding:0;
-    margin:0 0 0 0;
-    font-weight:400;
-    }
-    .container header h1, .container header aside.attribution {
-    margin-left:calc(.5rem + 1vw);
-    }
+   .container article {
+     height:80vh;
+     display:grid;
+     grid-template-columns: 2fr 5fr 1fr;
+     grid-template-rows: 4vh 45vh 26vh 5vh;
 
-    .container article {
-    height:80vh;
-    display:grid;
-    grid-template-columns: 2fr 5fr 1fr;
-    grid-template-rows: 4vh 45vh 26vh 5vh;
+     grid-template-areas:
+     "tabs tabs radlex"
+     "text viewport viewport"
+     "thumbnails viewport viewport"
+     "thumbnails caption caption";
+   }
 
-    grid-template-areas:
-    "tabs tabs radlex"
-    "text viewport viewport"
-    "thumbnails viewport viewport"
-    "thumbnails caption caption";
-    }
+   .tabs {
+     grid-area:tabs;
+     padding-top:.725vh;
+   }
+   .radlex {
+     grid-area:radlex;
+   }
+   aside.text, footer.caption {
+     grid-area:text;
+   }
+   div.viewport {
+     grid-area:viewport;
+   }
+   nav.thumbnails {
+     grid-area:thumbnails;
+   }
+   footer.caption {
+     grid-area:caption;
+   }
 
-    .tabs {
-    grid-area:tabs;
-    padding-top:.725vh;
-    }
-    .radlex {
-    grid-area:radlex;
-    }
-    aside.text, footer.caption {
-    grid-area:text;
-    }
-    div.viewport {
-    grid-area:viewport;
-    }
-    nav.thumbnails {
-    grid-area:thumbnails;
-    }
-    footer.caption {
-    grid-area:caption;
-    }
+   aside.text, nav.thumbnails, footer.caption {
+     font-size:calc(.825em);
+     padding: .5ex .5em;
+   }
+   aside.text {
+     display:none;
+   }
+   aside.text:first-of-type {
+     display:block;
+   }
 
-    aside.text, nav.thumbnails, footer.caption {
-    font-size:calc(.825em);
-    padding: .5ex .5em;
-    }
-    aside.text {
-    display:none;
-    }
-    aside.text:first-of-type {
-    display:block;
-    }
+   ul, li {
+     list-style:none;
+     display:inline-block;
+     margin:0;
+     padding:0;
+   }
 
-    ul, li {
-    list-style:none;
-    display:inline-block;
-    margin:0;
-    padding:0;
-    }
+   a.tab {
+     white-space:nowrap;
+     color:#666;
+     text-decoration:none;
+     display:inline-block; 
+     border:1px solid #999;
+     padding:.2vh 1ex;
+     box-shadow: 2px 3px 4px #000005;
+   }
+   .tabs a.tab {
+     opacity:0.5;
+   }
+   a.tab, .radlex {
+     font-size:calc(.5rem + .625vw);
+   }
+   a.tab.selected, a.tab.hasContent:active {
+     background-color:black; /* to whatever background lands */
+     opacity:1;
+   }
+   a.tab.selected, a.tab.hasContent:active, a.tab.hasContent {
+     color:yellow;
+   }
 
-    a.tab {
-    white-space:nowrap;
-    color:#666;
-    text-decoration:none;
-    display:inline-block; 
-    border:1px solid #999;
-    padding:.2vh 1ex;
-    box-shadow: 2px 3px 4px #000005;
-    }
-    .tabs a.tab {
-    opacity:0.5;
-    }
-    a.tab, .radlex {
-    font-size:calc(.5rem + .625vw);
-    }
-    a.tab.selected, a.tab:active {
-    background-color:black; /* to whatever background lands */
-    opacity:1;
-    }
-    a.tab.selected, a.tab:active, a.tab.hasContent {
-    color:yellow;
-    }
+   aside.text, nav.thumbnails, div.viewport, footer.caption, .tabs {
+     margin:0 0 .5ex 1ex;
+   }
 
-    aside.text, nav.thumbnails, div.viewport, footer.caption, .tabs {
-    margin:0 0 .5ex 1ex;
-    }
+   aside.text, nav.thumbnails, div.viewport, footer.caption {
+     border:1px solid #999;
+     background-color:black;
+     box-shadow: 2px 3px 4px #000005;
+   }
 
-    aside.text, nav.thumbnails, div.viewport, footer.caption {
-    border:1px solid #999;
-    background-color:black;
-    box-shadow: 2px 3px 4px #000005;
-    }
-
-    @media screen and (max-height: 500px) {
-    .container { visibility:hidden }
-    .unsupportedDisplay { display:block!important; position:absolute;
-    z-index:10000; top:0 }
-    }
-    @media screen and (max-width: 600px) {
-    .container { visibility:hidden }
-    .unsupportedDisplay { display:block!important; position:absolute;
-    z-index:10000; top:0 }
-    }
+   @media screen and (max-height: 500px) {
+     .container { visibility:hidden }
+     .unsupportedDisplay { display:block!important; position:absolute;
+       display:block!important;
+       position:absolute;
+       z-index:10000;
+       top:0;
+     }
+   }
+   @media screen and (max-width: 600px) {
+     .container { visibility:hidden }
+     .unsupportedDisplay {
+       display:block!important;
+       position:absolute;
+       z-index:10000;
+       top:0;
+     }
+   }
   </style>
 
 </head>
@@ -309,13 +315,18 @@
     The current display size is not supported. Please enlarge your browsing window.
   </blockquote>
   <script type="text/javascript">
-    $("ul.tabs a").on("click",function(event){
-    var $link = $(event.target);
-    var tab = $link.attr("href").substr(1);
-    var $tab = $(document.getElementsByClassName(tab));
-    $tab.siblings("aside").hide().end().show();
-    $link.addClass("selected").parent().siblings().find(".tab").removeClass("selected");
-    });
+    
+   $("ul.tabs a").on("click",function(event){
+     var $link = $(event.target);
+     if ( ! $link.hasClass("hasContent") ) return false;
+     var tab = $link.attr("href").substr(1);
+     var $tab = $(document.getElementsByClassName(tab));
+     $tab.siblings("aside").hide().end().show();
+     $link.addClass("selected").parent().siblings().find(".tab").removeClass("selected");
+   });
+
+   var hash = window.location.hash
+   if ( hash ) $("ul.tabs a[href='"+ hash +"']").trigger("click");
   </script>
   <script src="js/css-polyfills.min.js" type="text/javascript"></script>
 </body>
