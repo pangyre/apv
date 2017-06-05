@@ -1,0 +1,9 @@
+cp *.dcm dicom/
+rm dicom/index.dat
+
+dcmqridx -v dicom/ hss/var/dicom/*
+# OR
+find hss/var/dicom -type f -print0 | xargs -0 dcmqridx dicom -v
+
+dcmqrscp -v -c dcmqrscp.cfg 11111
+    
