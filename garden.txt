@@ -1,52 +1,54 @@
-chives
-kale
-cayenne
-snappease
-camomille
-endive
-mustard
-parsely
-green onion
-green onion
-green onion
-green onion
-
-iceberg
-iceberg
-iceberg
-iceberg
-iceberg
-romaine
-romaine
-romaine
-taragon*
-borage
-summer savory
-marjoram
-cabbage
-corn salad
-chervil
-lettuce salad bowl green
-lettuce salad bowl green
-lettuce salad bowl green
-chinese cabbage
-fennel
-zucchini
-golden acre cabbage
-long standing spinach
-broccoli
-butterhead lettuce
-greens mix
-greens mix
-greens mix
-spinach
-dill
-cilantro (maybe two for the seeds)
-rosemary
-mint*
-mint*
-brussels sprouts
-brussels sprouts
-catnip
+<ol>
+  <li>chives</li>
+  <li>kale</li>
+  <li>cayenne</li>
+  <li>snap peas</li>
+  <li>chamomile</li>
+  <li>endive</li>
+  <li>mustard</li>
+  <li>parsley</li>
+  <li>green onion</li>
+  <li>green onion</li>
+</ol>
+<ol>
+  <li>green onion</li>
+  <li>green onion</li>
+  <li>iceberg</li>
+  <li>iceberg</li>
+  <li>iceberg</li>
+  <li>iceberg</li>
+  <li>iceberg</li>
+  <li>romaine</li>
+  <li>romaine</li>
+  <li>romaine</li>
+  <li>tarragon*</li>
+  <li>borage</li>
+  <li>summer savory</li>
+  <li>marjoram</li>
+  <li>cabbage</li>
+  <li>corn salad</li>
+  <li>chervil</li>
+  <li>lettuce salad bowl green</li>
+  <li>lettuce salad bowl green</li>
+  <li>lettuce salad bowl green</li>
+  <li>Chinese cabbage</li>
+  <li>fennel</li>
+  <li>zucchini</li>
+  <li>golden acre cabbage</li>
+  <li>long standing spinach</li>
+  <li>broccoli</li>
+  <li>butterhead lettuce</li>
+  <li>greens mix</li>
+  <li>greens mix</li>
+  <li>greens mix</li>
+  <li>spinach</li>
+  <li>dill</li>
+  <li>cilantro (corriander; two?)</li>
+  <li>rosemary</li>
+  <li>mint*</li>
+  <li>Brussels sprouts</li>
+  <li>Brussels sprouts</li>
+  <li>catnip</li>
+</ol>
 
 *Don't have, but get

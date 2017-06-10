@@ -7,7 +7,6 @@ use WWW::Mechanize;
 # https://post.craigslist.org/bulk-rss/validate - Submit RSS to this URL to be validated.
 # https://post.craigslist.org/bulk-rss/post - Submit RSS to this URL to be posted.
 
-
 my $tx = Text::Xslate->new();
 my $template = do { local $/; <DATA> };
 say $tx->render_string( $template, data() );
